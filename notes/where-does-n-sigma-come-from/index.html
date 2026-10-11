@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where does &#x27;N sigma&#x27; come from in a counting experiment? | Field Notes in Physics</title>
+<meta name="description" content="Asimov datasets, chi-squared with nuisance parameters, and why normalization pulls act on the prediction.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>Where does &#x27;N sigma&#x27; come from in a counting experiment?</h1><div class='meta'>11 October 2026 &middot; 2 min read &middot; statistics, sensitivity, methods</div><p>A sensitivity forecast ends with a single number such as "N sigma". This post lays out where that number comes from for a binned counting experiment, and where it is easy to fool oneself.</p>
+<h2>The Asimov shortcut</h2>
+<p>To forecast, there is no real data. Instead, the expected counts under the hypothesis taken as true replace the data (the "Asimov dataset"), and the test statistic is evaluated on those:</p>
+<p>$$\chi^2=\sum_i\frac{\left(N_i^{\rm std}-N_i^{\rm alt}\right)^2}{\sigma_i^2},\qquad\text{significance}\approx\sqrt{\chi^2}.$$</p>
+<p>For a simple-versus-simple comparison, $\sqrt{\chi^2}$ is a good estimate of the median significance when the counts per bin are large enough for the Gaussian approximation to hold. At low counts a Poisson likelihood ratio is the safer choice, and the difference should be checked on a bin-by-bin basis.</p>
+<h2>Adding nuisance parameters</h2>
+<p>Flux and cross-section normalizations are never known exactly. A standard pull-term form is</p>
+<p>$$\chi^2(\vec\epsilon)=\sum_i\frac{\left(N_i^{\rm std}-N_i^{\rm alt}(\vec\epsilon)\right)^2}{\sigma_i^2}+\sum_j\epsilon_j^2,\qquad N_i^{\rm alt}(\vec\epsilon)=N_i^{\rm alt}\Big(1+\sum_j\epsilon_jf_{ij}\Big),$$</p>
+<p>where $f_{ij}$ is the fractional effect of nuisance $j$ on bin $i$ at $\epsilon_j=1$.</p>
+<p>Two details are easy to get wrong.</p>
+<ol>
+<li><strong>Only the alternative prediction floats.</strong> $N_i^{\rm std}$ plays the role of the reference data and stays fixed. A normalization pull then acts by letting the alternative prediction partly mimic the standard spectrum's overall scale. That is the correct way for a normalization systematic to reduce discovery significance. If the same pull were applied to both sides, it would cancel.</li>
+<li><strong>The minimum is analytic.</strong> Since $N_i^{\rm alt}(\vec\epsilon)$ is linear in $\vec\epsilon$, the profiled $\chi^2$ is a quadratic form with a closed-form minimum. It is still worth checking against a numerical minimizer, which in this case agreed to better than $10^{-11}$.</li>
+</ol>
+<h2>Why the prior on the flux can dominate</h2>
+<p>A 16% flux uncertainty from a solar model is large compared to a spectral distortion of a few percent. If the flux prior is treated as external and independent of the detector, the significance can drop dramatically. If the detector can measure the flux itself, for example through a neutral-current channel as discussed in the <a href="/notes/deuterium-cc-nc-es/">deuterium post</a>, the picture changes. The size of that swing is a major point in any honest forecast, and deserves its own post once the numbers are cleared.</p>
+<h2>What is still unclear</h2>
+<p>Gaussian pulls for non-Gaussian systematics, and the treatment of backgrounds with shape uncertainties, are simplifications that have not been tested against a full likelihood analysis.</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
