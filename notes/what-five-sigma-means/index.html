@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What does 5 sigma actually mean? A coin-flip explanation | Field Notes in Physics</title>
+<meta name="description" content="A discovery threshold explained with something anyone can imagine: tossing a fair coin.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>What does 5 sigma actually mean? A coin-flip explanation</h1><div class='meta'>12 October 2026 &middot; 3 min read &middot; statistics, intro, methods</div><blockquote>
+<p><strong>In one minute:</strong> "5 sigma" means that a result at least this extreme would happen by chance, with nothing real going on, about once in 3.5 million tries. Roughly the same odds as tossing a fair coin and getting 22 heads in a row. It is a statement about the data under the no-signal assumption, not about the probability that the signal is real.</p>
+</blockquote>
+<h2>The coin version</h2>
+<p>Suppose a coin is claimed to be biased. A fair coin is the "nothing is going on" hypothesis. If it is tossed 10 times and lands heads 9 times, this is unusual but not shocking: it happens for a fair coin about 1% of the time. At 20 heads in 20 tosses, a fair coin would almost never do that, and most people would stop believing the coin is fair.</p>
+<p>Particle physicists do the same thing, with numbers of detected events replacing coin tosses. They ask: if there were no new effect and the background alone were present, how often would a statistical fluctuation produce a result this far from the expected count? That probability is the p-value.</p>
+<h2>Turning a p-value into sigma</h2>
+<p>"Sigma" is a way to quote the p-value using the Gaussian distribution. The one-sided numbers are:</p>
+<table>
+<thead>
+<tr>
+<th>Significance</th>
+<th>Chance of a fluctuation this large</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 sigma</td>
+<td>about 1 in 6</td>
+</tr>
+<tr>
+<td>2 sigma</td>
+<td>about 1 in 44</td>
+</tr>
+<tr>
+<td>3 sigma</td>
+<td>about 1 in 740</td>
+</tr>
+<tr>
+<td>4 sigma</td>
+<td>about 1 in 32,000</td>
+</tr>
+<tr>
+<td>5 sigma</td>
+<td>about 1 in 3.5 million</td>
+</tr>
+</tbody>
+</table>
+<p>3 sigma is called "evidence" and 5 sigma is called "discovery". The 2012 Higgs announcement used 5 sigma. For comparison, 22 fair-coin heads in a row has odds of 1 in about 4 million, close to 5 sigma.</p>
+<h2>Why the bar is so high</h2>
+<p>Physicists look at many places, with many kinds of analysis, so a rare fluctuation will be found somewhere eventually. A high threshold protects against being fooled by one of them. Some 3 sigma anomalies have come and gone over the decades.</p>
+<h2>Two common mistakes</h2>
+<ol>
+<li><strong>It is not the probability that the effect is real.</strong> The p-value says how surprising the data are if there is no effect. It does not give the chance of the effect being true. That needs a prior and a different kind of analysis.</li>
+<li><strong>It is only as good as the model.</strong> If the background is underestimated or the detector response is misjudged, the sigma value is wrong while looking perfectly precise.</li>
+</ol>
+<h2>For sensitivity forecasts</h2>
+<p>When a paper says that a future detector would reach "7 sigma" in some measurement, no data exist yet. The number is computed from expected counts, with a stand-in dataset equal to the prediction, and it depends strongly on assumptions about backgrounds and systematic uncertainties. Part of reading such a claim sensibly is asking which assumptions it is sensitive to. A <a href="/notes/where-does-n-sigma-come-from/">more technical post</a> shows how this is calculated.</p>
+<h2>A question to take away</h2>
+<p>If an experiment reports 3 sigma, and 100 such experiments are done on unrelated questions, how many 3 sigma results should be expected from fluctuations alone?</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
