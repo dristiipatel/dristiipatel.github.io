@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why use heavy water to catch neutrinos? The SNO trick | Field Notes in Physics</title>
+<meta name="description" content="One detector material, three reactions, and a result that did not depend on solar models.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>Why use heavy water to catch neutrinos? The SNO trick</h1><div class='meta'>16 October 2026 &middot; 2 min read &middot; detectors, deuterium, SNO, intro</div><blockquote>
+<p><strong>In one minute:</strong> Deuterium in heavy water lets a detector count electron neutrinos and all neutrinos separately, in the same experiment. SNO used that to show that the missing solar neutrinos had changed flavour, without depending on any solar model. The same idea underlies proposals for deuterium-loaded detectors today.</p>
+</blockquote>
+<h2>The problem SNO was built to solve</h2>
+<p>By the 1990s several experiments had measured fewer solar neutrinos than predicted, but they mostly measured electron neutrinos only. A skeptic could say the solar model was off, or that the neutrinos were being lost. To answer, an experiment needed to measure the electron-neutrino flux and the total neutrino flux at the same time.</p>
+<h2>Why deuterium</h2>
+<p>A deuteron (one proton, one neutron) is a loosely bound object, and that gives three reactions with neutrinos in the same detector:</p>
+<ul>
+<li><strong>Charged current:</strong> an electron neutrino breaks the deuteron into two protons and an electron. Only electron neutrinos do this.</li>
+<li><strong>Neutral current:</strong> any flavour of neutrino can break the deuteron into a proton and a neutron. This counts all of them.</li>
+<li><strong>Elastic scattering:</strong> any flavour can scatter off an electron, with electron neutrinos doing so more strongly.</li>
+</ul>
+<p>Compare the first two counts. If the Sun's neutrinos were only disappearing, both would be low. If they were changing flavour, the charged-current count would be low while the neutral-current count would match the full predicted total.</p>
+<h2>What was found</h2>
+<p>The Sudbury Neutrino Observatory held about 1000 tonnes of heavy water in a vessel two kilometres underground in a nickel mine in Ontario. In 2002 it reported that the total flux matched solar model predictions and that only about a third was in the electron flavour. Neutrinos were changing flavour. Arthur McDonald shared the 2015 Nobel Prize in Physics for this.</p>
+<h2>What is still interesting about deuterium</h2>
+<p>The charged-current reaction has a low energy threshold (about 1.44 MeV) and it records the electron's energy, so the spectrum can be studied in detail. That is useful in the energy range where existing detectors have trouble, discussed in the post about the <a href="/notes/solar-neutrinos-2-5-mev-gap/">2 to 5 MeV gap</a>. The neutral-current channel also offers a built-in check on the total flux, which matters when the uncertainty on the solar flux is of order 15%. More detail is in the <a href="/notes/deuterium-cc-nc-es/">technical deuterium post</a>.</p>
+<h2>A question to take away</h2>
+<p>What would a deuterated detector measure that a water or ordinary scintillator detector of the same size cannot?</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
