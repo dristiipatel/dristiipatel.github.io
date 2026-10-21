@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>When the independent cross-check disagrees: arctan2 and a retracted claim | Field Notes in Physics</title>
+<meta name="description" content="Two episodes where an independent check misled, and the habits that came out of them.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>When the independent cross-check disagrees: arctan2 and a retracted claim</h1><div class='meta'>21 October 2026 &middot; 3 min read &middot; workflow, verification, numerics</div><p>Context: the <a href="/notes/verification-first-architecture/">architecture post</a> listed independent solvers. An independent check is only useful if its disagreements are interpreted correctly, and two episodes showed how that can go wrong.</p>
+<h2>Episode 1: a check that disagreed by 0.2</h2>
+<p>A cross-check following de Holanda and Smirnov's reduced-Hamiltonian method was added. Its first version disagreed with the primary solver by up to about 0.2 in $P_{ee}$ in the feature region. Taken at face value, that would have been serious evidence against the main result.</p>
+<p>Before accepting that, the cross-check's own code was audited. The sterile mixing angle was computed as</p>
+<pre><code class="language-python">theta = 0.5 * np.arctan(2 * offdiag / diag_diff)
+</code></pre>
+<p><code>arctan</code> returns values in $(-\pi/2,\pi/2)$, so the half-angle sits in $(-\pi/4,\pi/4)$. At the resonance crossing <code>diag_diff</code> changes sign, and the true angle passes through $\pi/4$ and continues beyond it. A one-line comparison shows the problem:</p>
+<pre><code class="language-python">import numpy as np
+d = np.array([-1, -0.5, 0.5, 1.0])    # diag_diff across the crossing
+off = 0.1
+print(0.5 * np.arctan(2 * off / d))   # [-0.099 -0.190  0.190  0.099]   sign flips, angle never passes pi/4
+print(0.5 * np.arctan2(2 * off, d))    # [ 1.472  1.381  0.190  0.099]   continuous branch
+</code></pre>
+<p>This is the same class of bug (continuity through an avoided crossing) that had been fixed in the primary solver's eigenvector tracking (<a href="/notes/two-bugs-in-one-hamiltonian/">previous post</a>). Switching to <code>arctan2</code> brought the two methods into agreement away from the feature, and to within about 0.01 to 0.02 inside it, which is consistent with the cross-check's own stated approximations (fully adiabatic, no coupling to the upper LMA branch).</p>
+<p><strong>The habit:</strong> a new check that disagrees with the main result gets the same scrutiny as the main result. Disagreement does not tell which side is wrong.</p>
+<h2>Episode 2: a check that could not have worked</h2>
+<p>An earlier perturbative check, based on a formula of Giunti and Li, had been used to argue that a feature in the main solver was a numerical artifact. On inspection, the function accepted a <code>dm2_01</code> argument and never used it in its resonance condition. It was structurally incapable of representing the sterile resonance at all, so its "agreement" with the standard curve meant nothing.</p>
+<p>The claim was retracted in the code, and a runtime warning was added so that the function cannot silently mislead again.</p>
+<p><strong>The habit:</strong> before trusting a check, change each input and confirm the output moves. A cheap sensitivity test would have exposed the unused argument in seconds.</p>
+<h2>Episode 3 (shorter): comparing a projected number against an unprojected one</h2>
+<p>In the transfer-matrix check from the <a href="/notes/adiabaticity-landau-zener/">adiabaticity post</a>, the adiabatic branch applied the outer $\cos^4\theta_{13}/\sin^4\theta_{13}$ projection and the non-adiabatic branch did not. The offset between them was reported as a non-adiabatic correction. Far from any resonance, where the true correction must be about zero, the offset still appeared, and it was reproduced by working out what an unprojected $P_{ee}$ would look like. After the fix the correction shrank by roughly a factor of ten. The off-diagonal transfer-matrix elements themselves were never affected, since the bug lived in how they were converted into a comparable $P_{ee}$.</p>
+<p><strong>The habit:</strong> test a comparison in a regime where the answer is known to be zero.</p>
+<h2>What is still unclear</h2>
+<p>None of this proves the main solver is right. It shows how the checks were interpreted when they gave uncomfortable answers.</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
