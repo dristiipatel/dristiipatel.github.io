@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A numerical artifact that looks like physics: step-size resonance in a Magnus integrator | Field Notes in Physics</title>
+<meta name="description" content="A piecewise-constant propagator gave wrong answers at isolated step counts. How it was found and what the fix was.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>A numerical artifact that looks like physics: step-size resonance in a Magnus integrator</h1><div class='meta'>25 October 2026 &middot; 3 min read &middot; workflow, numerics, TDSE</div><p>Context: the <a href="/notes/when-the-cross-check-disagrees/">cross-check post</a> mentioned a direct time-dependent Schrodinger integration used as an independent solver. This post is about a trap in that integrator.</p>
+<h2>The method</h2>
+<p>Starting from a pure $\nu_e$ state in the flavour basis, the wave function is evolved with</p>
+<p>$$i\frac{d\psi}{dr}=H(r)\,\psi$$</p>
+<p>using piecewise-constant steps: over each step $H$ is frozen at its midpoint value and the state is multiplied by $e^{-iH\,\Delta r}$. This is a Magnus integrator of order one. It is cheap and keeps the state normalized exactly.</p>
+<p>Two practical details:</p>
+<ul>
+<li><strong>Scale disparity.</strong> Near the production point the matter potential is orders of magnitude larger than the off-diagonal couplings. Subtracting the instantaneous minimum eigenvalue from $H$ before exponentiating removes a global phase. That phase cancels in every final probability, so this is an exact acceleration and not an approximation.</li>
+<li><strong>Observable.</strong> The surface state is projected on the vacuum mass eigenstates, and the probabilities are summed incoherently. This is justified because the Sun-Earth vacuum phase accumulated over about 1 AU averages to zero for any realistic detector.</li>
+</ul>
+<h2>The artifact</h2>
+<p>With uniform steps, the step size can land close to a rational multiple of the local oscillation half-period. Phase errors then add up coherently across many steps instead of averaging out. The result is a wrong answer at specific, isolated step counts, and a correct one at the neighbouring counts. A scan over $N$ in the 1 to 8 MeV range showed bad values at $N=2000,\,4000,\,5000,\,6000,\,8000,\,10000$ and $12000$ (at one or more energies each), and a clean result at $N=14\,000$.</p>
+<p>This has nothing to do with the physical MSW resonance. It is a property of the numerical scheme. The two are easy to confuse because both appear as features at specific energies.</p>
+<h2>How it was found</h2>
+<p>By running the same physical point at many step counts, not only at "a large number". A sketch of the diagnostic:</p>
+<pre><code class="language-python">import numpy as np
+
+def scan_steps(pee_func, energies, n_list):
+    &quot;&quot;&quot;pee_func(E, n_steps) -&gt; P_ee.  Returns array [len(n_list), len(energies)].&quot;&quot;&quot;
+    return np.array([[pee_func(E, n) for E in energies] for n in n_list])
+
+# Then look for rows (values of N) that deviate from their neighbours:
+# results = scan_steps(my_tdse, np.linspace(1, 8, 36), [2000, 2500, 3000, 4000, 5000, 6000, 8000, 10000, 12000, 14000])
+# spread = np.ptp(results, axis=0)       # per-energy spread across N
+# np.argmax(np.abs(results - np.median(results, axis=0)), axis=0)   # which N is the outlier at each energy
+</code></pre>
+<h2>What to take away</h2>
+<ul>
+<li>A convergence study that doubles $N$ from one starting point can walk straight through bad values and still look converged.</li>
+<li>A smooth-looking result as a function of energy at one fixed $N$ is not evidence that $N$ is safe.</li>
+<li>Higher-order Magnus terms or a non-uniform step grid are the principled fixes. Here a verified-clean fixed $N$ was selected instead, and the choice is documented.</li>
+</ul>
+<h2>What is still unclear</h2>
+<p>The clean value of $N$ was confirmed over the energy range and parameters tested. A new region of parameter space calls for a new scan.</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
