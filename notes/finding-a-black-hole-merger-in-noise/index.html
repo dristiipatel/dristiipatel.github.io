@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finding a black-hole merger in raw noise: matched filtering for beginners | Field Notes in Physics</title>
+<meta name="description" content="How the first gravitational-wave signal was pulled out of the data, using ideas from a noisy room.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<article><h1>Finding a black-hole merger in raw noise: matched filtering for beginners</h1><div class='meta'>26 October 2026 &middot; 3 min read &middot; gravitational-waves, signal-processing, intro</div><blockquote>
+<p><strong>In one minute:</strong> Gravitational-wave signals are far smaller than the noise in the detector. The way to find them is to know exactly what the signal should look like and to search the data for it, after first flattening the noise. The public data from the first detection can be run through this pipeline by an undergraduate in an afternoon.</p>
+</blockquote>
+<h2>The problem</h2>
+<p>When two black holes merged and the signal reached LIGO in September 2015, the stretching of space at the detectors was about one part in $10^{21}$. In the raw data it is invisible: the noise is much larger at every moment.</p>
+<h2>An analogy: a song in a loud room</h2>
+<p>Imagine trying to hear one particular song in a noisy cafe. Knowing the tune helps enormously. The brain does a kind of matching: it listens for that pattern, and ignores everything else. It also helps if the room is loud mainly at low frequencies, because the listener can stop paying attention to the rumble.</p>
+<p>Those are the two steps of the analysis.</p>
+<h2>Step 1: whiten the data</h2>
+<p>Detector noise is not equal at all frequencies. It is large at very low and very high frequencies and smallest in a band around a hundred hertz. Whitening divides each frequency component by the noise level at that frequency, so the noise becomes flat. This is what makes the signal's structure stand out, and it is why the plot of "whitened strain" looks so different from the raw data.</p>
+<h2>Step 2: matched filter</h2>
+<p>Take a template, a predicted waveform for given black hole masses, and slide it along the whitened data, calculating how well they match at each time. The resulting signal-to-noise ratio (SNR) peaks where the template lines up with a real signal. A bank of templates for different masses is tried, and the best-matching one is chosen.</p>
+<h2>Doing it with public data</h2>
+<p>The data from the detection are public through the Gravitational Wave Open Science Center. A full pipeline (download the data, estimate the noise spectrum, whiten, apply a waveform model, find the SNR peak) can be written with the PyCBC library. Run that way, the signal appears in both detectors, with peak SNRs of about 17.5 in Hanford and 13 in Livingston, and the two peaks are separated by less than the roughly 10 milliseconds that light needs to travel between the two sites.</p>
+<h2>Why a neutrino physicist cares</h2>
+<p>The same logic, a known signal shape against a well-characterized background, appears everywhere in experimental physics. Finding a few supernova neutrinos in a detector, or an energy distortion in a solar neutrino spectrum, relies on knowing what the signal looks like and how the background behaves.</p>
+<h2>Try it</h2>
+<p>PyCBC has tutorials that use exactly this event. Running the whitening step on its own and looking at the before-and-after plot is a good first target.</p>
+<h2>A question to take away</h2>
+<p>What would happen to the SNR if the noise estimate were slightly wrong?</p></article>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>
