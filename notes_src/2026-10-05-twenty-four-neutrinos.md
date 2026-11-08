@@ -6,9 +6,9 @@ tags: [supernova, neutrinos, intro]
 draft: false
 ---
 
-> **In one minute:** When a massive star collapses, about 99% of the released energy leaves as neutrinos. In February 1987 three detectors recorded about two dozen of them from a supernova in a neighbouring galaxy, a few hours before the light arrived. Every supernova detector built since is aiming to do that again, with far better statistics.
+> When a massive star collapses, about 99% of the released energy leaves as neutrinos. In February 1987 three detectors recorded about two dozen of them from a supernova in a neighbouring galaxy, a few hours before the light arrived. Detectors built since then hope to see the next one with many more events.
 
-## The most violent event with the quietest messenger
+## Neutrinos from a collapsing star
 
 A massive star runs out of fuel and its iron core collapses. The core compresses to nuclear density, and the gravitational binding energy released is around $3\times10^{46}$ joules, far more than the Sun will emit in its entire life. About 99% of it leaves as neutrinos over roughly ten seconds. The visible explosion carries a tiny remainder.
 

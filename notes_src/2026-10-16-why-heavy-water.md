@@ -6,7 +6,7 @@ tags: [detectors, deuterium, SNO, intro]
 draft: false
 ---
 
-> **In one minute:** Deuterium in heavy water lets a detector count electron neutrinos and all neutrinos separately, in the same experiment. SNO used that to show that the missing solar neutrinos had changed flavour, without depending on any solar model. The same idea underlies proposals for deuterium-loaded detectors today.
+> Deuterium in heavy water lets a detector count electron neutrinos and all neutrinos separately, in the same experiment. SNO used that to show that the missing solar neutrinos had changed flavour, without depending on any solar model. The same idea underlies proposals for deuterium-loaded detectors today.
 
 ## The problem SNO was built to solve
 

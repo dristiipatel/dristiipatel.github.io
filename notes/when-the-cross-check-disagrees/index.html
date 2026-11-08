@@ -56,14 +56,14 @@ print(0.5 * np.arctan2(2 * off, d))    # [ 1.472  1.381  0.190  0.099]   continu
 <p>This is the same class of bug (continuity through an avoided crossing) that had been fixed in the primary solver's eigenvector tracking (<a href="/notes/two-bugs-in-one-hamiltonian/">previous post</a>). Switching to <code>arctan2</code> brought the two methods into agreement away from the feature, and to within about 0.01 to 0.02 inside it, which is consistent with the cross-check's own stated approximations (fully adiabatic, no coupling to the upper LMA branch).</p>
 <p><strong>The habit:</strong> a new check that disagrees with the main result gets the same scrutiny as the main result. Disagreement does not tell which side is wrong.</p>
 <h2>Episode 2: a check that could not have worked</h2>
-<p>An earlier perturbative check, based on a formula of Giunti and Li, had been used to argue that a feature in the main solver was a numerical artifact. On inspection, the function accepted a <code>dm2_01</code> argument and never used it in its resonance condition. It was structurally incapable of representing the sterile resonance at all, so its "agreement" with the standard curve meant nothing.</p>
-<p>The claim was retracted in the code, and a runtime warning was added so that the function cannot silently mislead again.</p>
-<p><strong>The habit:</strong> before trusting a check, change each input and confirm the output moves. A cheap sensitivity test would have exposed the unused argument in seconds.</p>
+<p>An earlier perturbative check, based on a formula of Giunti and Li, had been used to argue that a feature in the main solver was a numerical artifact. On inspection, the function accepted a <code>dm2_01</code> argument and never used it in its resonance condition. It could not represent the sterile resonance at all, so its agreement with the standard curve meant nothing.</p>
+<p>The claim was retracted in the code, and a runtime warning was added so that the function cannot mislead without notice again.</p>
+<p><strong>The habit:</strong> before trusting a check, change each input and confirm the output moves. A quick sensitivity test would have shown the unused argument.</p>
 <h2>Episode 3 (shorter): comparing a projected number against an unprojected one</h2>
 <p>In the transfer-matrix check from the <a href="/notes/adiabaticity-landau-zener/">adiabaticity post</a>, the adiabatic branch applied the outer $\cos^4\theta_{13}/\sin^4\theta_{13}$ projection and the non-adiabatic branch did not. The offset between them was reported as a non-adiabatic correction. Far from any resonance, where the true correction must be about zero, the offset still appeared, and it was reproduced by working out what an unprojected $P_{ee}$ would look like. After the fix the correction shrank by roughly a factor of ten. The off-diagonal transfer-matrix elements themselves were never affected, since the bug lived in how they were converted into a comparable $P_{ee}$.</p>
 <p><strong>The habit:</strong> test a comparison in a regime where the answer is known to be zero.</p>
 <h2>What is still unclear</h2>
-<p>None of this proves the main solver is right. It shows how the checks were interpreted when they gave uncomfortable answers.</p></article>
+<p>None of this proves the main solver is right. It shows how the checks were interpreted when they gave unexpected answers.</p></article>
 <footer>Field Notes in Physics &middot; Dristii Patel</footer>
 </div>
 </body>

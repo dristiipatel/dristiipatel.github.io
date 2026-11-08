@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A 2.5% bug in ten lines: rebinning, conservation tests, and a Monte Carlo that disagreed | Field Notes in Physics</title>
-<meta name="description" content="A rebinning helper silently dropped slivers at every bin edge. The conservation test passed because it tested the wrong function.">
+<meta name="description" content="A rebinning helper dropped slivers at every bin edge without any error. The conservation test passed because it tested the wrong function.">
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
@@ -40,7 +40,7 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 <body>
 <div class="wrap">
 <nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
-<article><h1>A 2.5% bug in ten lines: rebinning, conservation tests, and a Monte Carlo that disagreed</h1><div class='meta'>28 October 2026 &middot; 3 min read &middot; workflow, numerics, Monte-Carlo, verification</div><p>Context: an event-rate pipeline of the type described in the <a href="/notes/from-neutrino-energy-to-electron-energy/">kinematics post</a> ends by summing a continuous spectrum into a handful of analysis bins. That last step hid a bug that survived several rounds of review.</p>
+<article><h1>A 2.5% bug in ten lines: rebinning, conservation tests, and a Monte Carlo that disagreed</h1><div class='meta'>28 October 2026 &middot; 3 min read &middot; workflow, numerics, Monte-Carlo, verification</div><p>Context: an event-rate pipeline of the type described in the <a href="/notes/from-neutrino-energy-to-electron-energy/">kinematics post</a> ends by summing a continuous spectrum into a handful of analysis bins. That last step had a bug that was missed in several rounds of review.</p>
 <h2>The cross-check that exposed it</h2>
 <p>A second pipeline was written on purpose to be different. Instead of Gauss-Legendre quadrature, weighted production averaging and grid convolution, it drew individual pseudo-events: $E_\nu$ by inverse-CDF sampling, $T_e$ by sampling the tabulated kernel, and the reconstructed energy by per-event Gaussian smearing, then histogrammed into the same bins. Both pipelines shared the validated $P_{ee}$ solver, flux, cross section and production profile, so the comparison tested the binning machinery and nothing else.</p>
 <p>The two disagreed, by far more than the Monte Carlo's own statistical error. The first suspects were checked and ruled out: the coarseness of the kernel bucketing in the Monte Carlo, and a resolution floor applied in the deterministic code. Neither changed the answer.</p>
@@ -74,12 +74,12 @@ edges = np.linspace(0.05, 5.0, 11)
     return out
 </code></pre>
 <h2>Why the conservation test missed it</h2>
-<p>The earlier conservation test integrated the convolved spectrum in one piece. That checks the kernel, which was correct. It did not exercise <code>_rebin</code> at its production resolution. A test that passes for the wrong function gives confidence that does not belong to the code it was written for.</p>
+<p>The earlier conservation test integrated the convolved spectrum in one piece. That checks the kernel, which was correct. It did not exercise <code>_rebin</code> at its production resolution. A test that passes on a different function does not say much about the code it was meant to check.</p>
 <h2>Three habits from this</h2>
 <ol>
 <li><strong>Test the path production uses.</strong> Conservation should be checked from the first array to the last number that gets reported.</li>
 <li><strong>A different method finds bugs that a re-run cannot.</strong> Had the Monte Carlo reused any of the deterministic binning, it would have reproduced the bug and agreed.</li>
-<li><strong>Copy-pasted helpers multiply bugs.</strong> The same function had been pasted into three other scripts, and a separate recurrence turned up later in a different comparison script. A shared module would have meant one fix.</li>
+<li><strong>Copy-pasted helpers spread bugs.</strong> The same function had been pasted into three other scripts, and a separate recurrence turned up later in a different comparison script. A shared module would have meant one fix.</li>
 </ol>
 <p>After the fix, the deterministic and Monte Carlo pipelines agreed to within the Monte Carlo's own noise.</p>
 <h2>What is still unclear</h2>

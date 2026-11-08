@@ -1,12 +1,12 @@
 ---
 title: "A 2.5% bug in ten lines: rebinning, conservation tests, and a Monte Carlo that disagreed"
 date: 2026-10-28
-summary: "A rebinning helper silently dropped slivers at every bin edge. The conservation test passed because it tested the wrong function."
+summary: "A rebinning helper dropped slivers at every bin edge without any error. The conservation test passed because it tested the wrong function."
 tags: [workflow, numerics, Monte-Carlo, verification]
 draft: false
 ---
 
-Context: an event-rate pipeline of the type described in the [kinematics post](/notes/from-neutrino-energy-to-electron-energy/) ends by summing a continuous spectrum into a handful of analysis bins. That last step hid a bug that survived several rounds of review.
+Context: an event-rate pipeline of the type described in the [kinematics post](/notes/from-neutrino-energy-to-electron-energy/) ends by summing a continuous spectrum into a handful of analysis bins. That last step had a bug that was missed in several rounds of review.
 
 ## The cross-check that exposed it
 
@@ -57,13 +57,13 @@ def _rebin(x, y, edges):
 
 ## Why the conservation test missed it
 
-The earlier conservation test integrated the convolved spectrum in one piece. That checks the kernel, which was correct. It did not exercise `_rebin` at its production resolution. A test that passes for the wrong function gives confidence that does not belong to the code it was written for.
+The earlier conservation test integrated the convolved spectrum in one piece. That checks the kernel, which was correct. It did not exercise `_rebin` at its production resolution. A test that passes on a different function does not say much about the code it was meant to check.
 
 ## Three habits from this
 
 1. **Test the path production uses.** Conservation should be checked from the first array to the last number that gets reported.
 2. **A different method finds bugs that a re-run cannot.** Had the Monte Carlo reused any of the deterministic binning, it would have reproduced the bug and agreed.
-3. **Copy-pasted helpers multiply bugs.** The same function had been pasted into three other scripts, and a separate recurrence turned up later in a different comparison script. A shared module would have meant one fix.
+3. **Copy-pasted helpers spread bugs.** The same function had been pasted into three other scripts, and a separate recurrence turned up later in a different comparison script. A shared module would have meant one fix.
 
 After the fix, the deterministic and Monte Carlo pipelines agreed to within the Monte Carlo's own noise.
 

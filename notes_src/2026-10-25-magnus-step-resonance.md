@@ -6,7 +6,7 @@ tags: [workflow, numerics, TDSE]
 draft: false
 ---
 
-Context: the [cross-check post](/notes/when-the-cross-check-disagrees/) mentioned a direct time-dependent Schrodinger integration used as an independent solver. This post is about a trap in that integrator.
+Context: the [cross-check post](/notes/when-the-cross-check-disagrees/) mentioned a direct time-dependent Schrodinger integration used as an independent solver. This post is about a problem found in that integrator.
 
 ## The method
 
@@ -23,7 +23,7 @@ Two practical details:
 
 ## The artifact
 
-With uniform steps, the step size can land close to a rational multiple of the local oscillation half-period. Phase errors then add up coherently across many steps instead of averaging out. The result is a wrong answer at specific, isolated step counts, and a correct one at the neighbouring counts. A scan over $N$ in the 1 to 8 MeV range showed bad values at $N=2000,\,4000,\,5000,\,6000,\,8000,\,10000$ and $12000$ (at one or more energies each), and a clean result at $N=14\,000$.
+With uniform steps, the step size can land close to a rational multiple of the local oscillation half-period. Phase errors then add up coherently across many steps instead of averaging out. The result is a wrong answer at specific, isolated step counts, and a correct one at the neighbouring counts. A scan over $N$ in the 1 to 8 MeV range showed bad values at $N=2000,\,4000,\,5000,\,6000,\,8000,\,10000$ and $12000$ (at one or more energies each), and a stable result at $N=14\,000$.
 
 This has nothing to do with the physical MSW resonance. It is a property of the numerical scheme. The two are easy to confuse because both appear as features at specific energies.
 
@@ -46,10 +46,10 @@ def scan_steps(pee_func, energies, n_list):
 
 ## What to take away
 
-- A convergence study that doubles $N$ from one starting point can walk straight through bad values and still look converged.
+- A convergence study that doubles $N$ from one starting point can miss bad values and still look converged.
 - A smooth-looking result as a function of energy at one fixed $N$ is not evidence that $N$ is safe.
-- Higher-order Magnus terms or a non-uniform step grid are the principled fixes. Here a verified-clean fixed $N$ was selected instead, and the choice is documented.
+- Higher-order Magnus terms or a non-uniform step grid would be better fixes. Here a fixed $N$ that was checked to be stable was used instead, and the choice is documented.
 
 ## What is still unclear
 
-The clean value of $N$ was confirmed over the energy range and parameters tested. A new region of parameter space calls for a new scan.
+The chosen value of $N$ was confirmed over the energy range and parameters tested. A new region of parameter space calls for a new scan.

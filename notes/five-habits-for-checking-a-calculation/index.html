@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Five habits for checking whether a calculation is right | Field Notes in Physics</title>
-<meta name="description" content="Practical checks, with small real examples, that work for a lab report, a problem set or a research code.">
+<meta name="description" content="Practical checks, with small worked examples, that work for a lab report, a problem set or a research code.">
 <style>
 :root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
@@ -41,10 +41,10 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 <div class="wrap">
 <nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
 <article><h1>Five habits for checking whether a calculation is right</h1><div class='meta'>19 October 2026 &middot; 3 min read &middot; methods, computational-physics, intro</div><blockquote>
-<p><strong>In one minute:</strong> A calculation that runs without errors can still be wrong. Five checks catch most problems: test a limit with a known answer, wiggle each input and see whether the output moves, check conservation through the whole pipeline, compare with a different method, and compare one absolute number with the literature.</p>
+<p>A calculation that runs without errors can still be wrong. Five checks help catch many problems: test a limit with a known answer, wiggle each input and see whether the output moves, check conservation through the whole pipeline, compare with a different method, and compare one absolute number with the literature.</p>
 </blockquote>
 <h2>1. Test a limit where the answer is known</h2>
-<p>Set a parameter to zero or infinity and see whether the code collapses to a textbook formula. In a solver for a three-state neutrino problem, setting the mixing with the extra state to zero must reproduce the standard two-flavour result exactly. A residual of 0.1 to 0.6% remained, and it did not shrink when the grid was refined. Numerical error shrinks with a finer grid and a modelling mistake does not. That difference pointed straight to a missing factor in the Hamiltonian.</p>
+<p>Set a parameter to zero or infinity and see whether the code collapses to a textbook formula. In a solver for a three-state neutrino problem, setting the mixing with the extra state to zero must reproduce the standard two-flavour result exactly. A residual of 0.1 to 0.6% remained, and it did not shrink when the grid was refined. Numerical error shrinks with a finer grid and a modelling mistake does not. That difference pointed to a missing factor in the Hamiltonian.</p>
 <h2>2. Wiggle every input</h2>
 <p>Change each input by 10% and check that the output moves in a sensible way. An input that changes nothing is a warning.</p>
 <pre><code class="language-python">def wiggle(f, params, name, rel=0.1):
@@ -53,17 +53,17 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
     p2 = dict(params); p2[name] = params[name] * (1 + rel)
     return f(**p2) - base
 </code></pre>
-<p>A cross-check function once accepted a mass-splitting argument and never used it. It "agreed" with the standard curve for the simple reason that it could not represent anything else. One call to <code>wiggle</code> would have shown a zero response.</p>
-<h2>3. Conservation, through the real code path</h2>
-<p>If a step only redistributes things (events into bins, probability across energies), the total must be unchanged. The catch is to test the function that the analysis actually calls, at the resolution it actually uses. A rebinning helper lost about 2.4% of events at every bin edge, while a conservation test written for a different step passed happily.</p>
-<h2>4. Use a method that shares nothing</h2>
+<p>A cross-check function once accepted a mass-splitting argument and never used it. It agreed with the standard curve only because it could not represent anything else. One call to <code>wiggle</code> would have shown a zero response.</p>
+<h2>3. Check conservation in the code the analysis uses</h2>
+<p>If a step only redistributes things (events into bins, probability across energies), the total must be unchanged. It is important to test the function that the analysis calls, at the resolution it uses. A rebinning helper lost about 2.4% of events at every bin edge, while a conservation test written for a different step still passed.</p>
+<h2>4. Use a completely different method to validate</h2>
 <p>A second calculation is only useful if it can fail in a different way. An event-by-event Monte Carlo that sampled the same distributions agreed with a deterministic integration everywhere except by a uniform 2.5%, and that exposed the rebinning bug. A second run of the same integration code would have reproduced the bug.</p>
 <h2>5. Compare one absolute number with the literature</h2>
-<p>Relative comparisons hide normalization mistakes. A predicted event count was twice the published value for a whole energy range, even though it was for a narrower range. A part larger than the whole is a clear sign that something, here a missing fiducial-volume cut, was not accounted for.</p>
+<p>Relative comparisons hide normalization mistakes. A predicted event count was twice the published value for a whole energy range, even though it was for a narrower range. A part larger than the whole was a sign that something, here a missing fiducial-volume cut, was not accounted for.</p>
 <h2>When a check disagrees</h2>
-<p>The check deserves exactly the same scrutiny as the main calculation. In one case a new cross-check disagreed by a large amount, and the error turned out to be in the check, a mixing angle computed with <code>arctan</code> instead of <code>arctan2</code> that failed at the crossing. In another, the main code was wrong. Disagreement says that one of them is off and does not say which.</p>
+<p>The check needs the same care as the main calculation. In one case a new cross-check disagreed by a large amount, and the error turned out to be in the check, a mixing angle computed with <code>arctan</code> instead of <code>arctan2</code> that failed at the crossing. In another, the main code was wrong. Disagreement says that one of them is off and does not say which.</p>
 <h2>Try it</h2>
-<p>Take the last problem set code written and apply habits 1 and 2 to it. It takes ten minutes, and it is surprising how often something turns up.</p>
+<p>Try habits 1 and 2 on a recent piece of problem-set code. It takes about ten minutes, and it often finds something.</p>
 <h2>Going deeper</h2>
 <p>Longer write-ups of these cases: <a href="/notes/two-bugs-in-one-hamiltonian/">two bugs in one Hamiltonian</a>, <a href="/notes/when-the-cross-check-disagrees/">when a cross-check disagrees</a>, and <a href="/notes/a-two-percent-bug-in-ten-lines/">a bug in ten lines</a>.</p></article>
 <footer>Field Notes in Physics &middot; Dristii Patel</footer>

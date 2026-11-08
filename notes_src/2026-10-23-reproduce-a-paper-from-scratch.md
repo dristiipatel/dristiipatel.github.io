@@ -6,11 +6,11 @@ tags: [research, students, methods]
 draft: false
 ---
 
-> **In one minute:** Rebuilding a published calculation from the text alone, without the original code, is one of the best ways for an undergraduate to learn a research field. It exposes every assumption that the paper only mentions in passing. A mismatch is a result, as long as it is documented honestly.
+> Rebuilding a published calculation from the text alone, without the original code, is a good way for an undergraduate to learn a research field. It brings out the assumptions that a paper only mentions in passing. A mismatch is still useful, as long as it is written down clearly.
 
-## Why it works
+## Why it helps
 
-A paper presents a final table. Behind it sit dozens of choices about cross sections, interpolation, integration ranges, units and normalization, and many appear only as a citation or a half sentence. Reading gives the feeling of understanding. Rebuilding gives actual understanding, because every unstated assumption has to be stated in code.
+A paper presents a final table. Behind it sit dozens of choices about cross sections, interpolation, integration ranges, units and normalization, and many appear only as a citation or a half sentence. Reading can give a feeling of understanding. Rebuilding means every assumption has to be written down in code, which shows what was not understood yet.
 
 It is also a safe way to learn. The answer is known, so the result can be graded against the paper. Nobody has to wonder whether the physics is right, only whether the implementation is.
 
@@ -27,11 +27,11 @@ It is also a safe way to learn. The answer is known, so the result can be graded
 
 A supernova-neutrino event-rate paper for a deuterated detector was rebuilt from its published description. Neutral-current rates came out within 1 to 3% of the published tables, while the charged-current rates started 17 to 20% too high. A coding mistake was a natural suspect, so an independent re-implementation was built, and it gave the same answer. The cause turned out to be that the published cross-section tables are printed with coarse energy sampling, and integrating over a coarse table is not the same as integrating over the underlying calculation. Using the original finer tables brought the gap below 4%.
 
-In another reproduction, a detection-sensitivity table for two detectors was matched to rounding precision, but about 15% of discrepancy remained in a signal rate. It was documented in the write-up, and no parameter was tuned to hide it. An honest, labelled mismatch is more useful to the next reader than a perfect match that was forced.
+In another reproduction, a detection-sensitivity table for two detectors was matched to rounding precision, but about 15% of discrepancy remained in a signal rate. It was documented in the write-up, and no parameter was tuned to hide it. A clearly labelled mismatch is more useful to the next reader than a match that was forced.
 
-## What a professor looks for
+## Why it can help when applying for research
 
-A reproduction shows that someone can read a paper critically, implement it carefully and judge their own result. Posting the code and a short note about mismatches communicates that better than a list of courses.
+A reproduction can show that someone has read a paper carefully, implemented it and checked their own result. Sharing the code and a short note about mismatches may say more about this than a list of courses.
 
 ## Going deeper
 

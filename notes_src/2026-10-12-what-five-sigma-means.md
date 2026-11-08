@@ -6,11 +6,11 @@ tags: [statistics, intro, methods]
 draft: false
 ---
 
-> **In one minute:** "5 sigma" means that a result at least this extreme would happen by chance, with nothing real going on, about once in 3.5 million tries. Roughly the same odds as tossing a fair coin and getting 22 heads in a row. It is a statement about the data under the no-signal assumption, not about the probability that the signal is real.
+> "5 sigma" means that a result at least this extreme would happen by chance, if there were no effect at all, about once in 3.5 million tries. Roughly the same odds as tossing a fair coin and getting 22 heads in a row. It is a statement about the data under the no-signal assumption, not about the probability that the signal exists.
 
 ## The coin version
 
-Suppose a coin is claimed to be biased. A fair coin is the "nothing is going on" hypothesis. If it is tossed 10 times and lands heads 9 times, this is unusual but not shocking: it happens for a fair coin about 1% of the time. At 20 heads in 20 tosses, a fair coin would almost never do that, and most people would stop believing the coin is fair.
+Suppose a coin is claimed to be biased. A fair coin is the "nothing is going on" hypothesis. If it is tossed 10 times and lands heads 9 times, this is unusual but not very surprising: it happens for a fair coin about 1% of the time. At 20 heads in 20 tosses, a fair coin would almost never do that, and most people would stop believing the coin is fair.
 
 Particle physicists do the same thing, with numbers of detected events replacing coin tosses. They ask: if there were no new effect and the background alone were present, how often would a statistical fluctuation produce a result this far from the expected count? That probability is the p-value.
 
@@ -34,8 +34,8 @@ Physicists look at many places, with many kinds of analysis, so a rare fluctuati
 
 ## Two common mistakes
 
-1. **It is not the probability that the effect is real.** The p-value says how surprising the data are if there is no effect. It does not give the chance of the effect being true. That needs a prior and a different kind of analysis.
-2. **It is only as good as the model.** If the background is underestimated or the detector response is misjudged, the sigma value is wrong while looking perfectly precise.
+1. **It is not the probability that the effect exists.** The p-value says how surprising the data are if there is no effect. It does not give the chance of the effect being true. That needs a prior and a different kind of analysis.
+2. **It is only as good as the model.** If the background is underestimated or the detector response is misjudged, the sigma value can be wrong even though it looks precise.
 
 ## For sensitivity forecasts
 

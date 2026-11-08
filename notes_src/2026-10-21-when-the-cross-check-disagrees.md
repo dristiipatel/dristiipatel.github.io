@@ -34,11 +34,11 @@ This is the same class of bug (continuity through an avoided crossing) that had 
 
 ## Episode 2: a check that could not have worked
 
-An earlier perturbative check, based on a formula of Giunti and Li, had been used to argue that a feature in the main solver was a numerical artifact. On inspection, the function accepted a `dm2_01` argument and never used it in its resonance condition. It was structurally incapable of representing the sterile resonance at all, so its "agreement" with the standard curve meant nothing.
+An earlier perturbative check, based on a formula of Giunti and Li, had been used to argue that a feature in the main solver was a numerical artifact. On inspection, the function accepted a `dm2_01` argument and never used it in its resonance condition. It could not represent the sterile resonance at all, so its agreement with the standard curve meant nothing.
 
-The claim was retracted in the code, and a runtime warning was added so that the function cannot silently mislead again.
+The claim was retracted in the code, and a runtime warning was added so that the function cannot mislead without notice again.
 
-**The habit:** before trusting a check, change each input and confirm the output moves. A cheap sensitivity test would have exposed the unused argument in seconds.
+**The habit:** before trusting a check, change each input and confirm the output moves. A quick sensitivity test would have shown the unused argument.
 
 ## Episode 3 (shorter): comparing a projected number against an unprojected one
 
@@ -48,4 +48,4 @@ In the transfer-matrix check from the [adiabaticity post](/notes/adiabaticity-la
 
 ## What is still unclear
 
-None of this proves the main solver is right. It shows how the checks were interpreted when they gave uncomfortable answers.
+None of this proves the main solver is right. It shows how the checks were interpreted when they gave unexpected answers.

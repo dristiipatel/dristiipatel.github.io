@@ -42,7 +42,7 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 <nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
 <article><h1>An event count twice the literature value: a fiducial-volume story</h1><div class='meta'>1 November 2026 &middot; 3 min read &middot; workflow, event-rates, JUNO, verification</div><p>Context: an event-rate pipeline (<a href="/notes/verification-first-architecture/">architecture post</a>) was extended to a comparison against JUNO's elastic-scattering channel for $^8$B neutrinos. Before comparing anything, the pipeline's absolute event count was checked against a published feasibility study.</p>
 <h2>The warning sign</h2>
-<p>JUNO's own feasibility study quotes roughly 60,000 elastic-scattering signal events over ten years for the full analysis range with a 2 MeV threshold. The idealized calculation (full 20 kt target, no cuts) gave 126,489 events in the narrower 2 to 5 MeV window alone, a factor of about 2.1 above the full-range literature number. A sub-window cannot exceed the full range, so the direction of the discrepancy was already a red flag.</p>
+<p>JUNO's own feasibility study quotes roughly 60,000 elastic-scattering signal events over ten years for the full analysis range with a 2 MeV threshold. The idealized calculation (full 20 kt target, no cuts) gave 126,489 events in the narrower 2 to 5 MeV window alone, a factor of about 2.1 above the full-range literature number. A sub-window cannot exceed the full range, so the direction of the discrepancy was already suspicious.</p>
 <h2>Ruling out the usual suspects</h2>
 <ul>
 <li><strong>Cross section:</strong> the elastic-scattering cross section reproduced the Bahcall (1989) benchmark to 0.01%.</li>
@@ -51,18 +51,18 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 </ul>
 <p>None of these moved the answer.</p>
 <h2>The root cause</h2>
-<p>The calculation used the full target mass. Real analyses apply a fiducial cut to reject backgrounds near the vessel wall. JUNO's published analysis uses a 13 m fiducial radius inside a 17.7 m detector radius, which keeps</p>
+<p>The calculation used the full target mass. Published analyses apply a fiducial cut to reject backgrounds near the vessel wall. JUNO's published analysis uses a 13 m fiducial radius inside a 17.7 m detector radius, which keeps</p>
 <p>$$f_{\rm FV}=\left(\frac{13.0}{17.7}\right)^3\approx0.40$$</p>
 <p>of the mass. With that correction the 2 to 5 MeV total drops to about 50,000 events per ten years, about 0.84 of the full-range literature figure, and now correctly below one for a sub-window.</p>
-<h2>Fairness for the comparator</h2>
-<p>A comparison between two detectors has to treat both the same way. For the deuterated-detector side, the analogous number was taken from SNO, the only D$_2$O detector actually built: 550 cm fiducial radius inside a 600 cm vessel,</p>
+<h2>Treating both detectors the same way</h2>
+<p>A comparison between two detectors has to treat both the same way. For the deuterated-detector side, the analogous number was taken from SNO, the only D$_2$O detector built so far: 550 cm fiducial radius inside a 600 cm vessel,</p>
 <p>$$f_{\rm FV}=\left(\frac{550}{600}\right)^3\approx0.77.$$</p>
 <p>The factor was threaded through the target-mass term inside the pipeline, not applied afterwards to cached headline numbers, so that every downstream method picks it up automatically.</p>
 <h2>A second bug in the same script</h2>
 <p>The same comparison script called a solver as</p>
 <pre><code class="language-python">pee_sterile_3x3(E, DM2_01, SIN2_2ALPHA, n_steps=N_STEPS, check_convergence=False)
 </code></pre>
-<p>while the function expects the mixing angle in its second position and the mass splitting in the third. The values were passed in swapped order, so the mixing angle was about $10^{-5}$ rad and the curve collapsed onto the standard one. The giveaway was a diagnostic print: the "feature" minimum sat at the very edge of the energy grid with a depth of $10^{-4}$, which is what <code>argmin</code> returns on numerical noise.</p>
+<p>while the function expects the mixing angle in its second position and the mass splitting in the third. The values were passed in swapped order, so the mixing angle was about $10^{-5}$ rad and the curve collapsed onto the standard one. A diagnostic print showed the problem: the "feature" minimum sat at the very edge of the energy grid with a depth of $10^{-4}$, which is what <code>argmin</code> returns on numerical noise.</p>
 <p>The fix converts $\sin^2 2\alpha$ to $\alpha$ explicitly and passes both parameters as keywords:</p>
 <pre><code class="language-python">alpha = 0.5 * np.arcsin(np.sqrt(SIN2_2ALPHA))
 pee_sterile_3x3(E, alpha=alpha, dm2_01=DM2_01, n_steps=N_STEPS, check_convergence=False)

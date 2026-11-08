@@ -10,7 +10,7 @@ Context: the earlier posts covered the physics (the [MSW formula](/notes/msw-sur
 
 ## Rule 1: nothing is tuned
 
-The first version of the project used a fixed-density formula with a hand-tuned $\tanh$ for the standard curve, and a Gaussian bump with chosen amplitude, centre and width for a new-physics feature. Both produce plausible-looking plots, and neither has any predictive content: changing an oscillation parameter would not change the curve correctly, because the curve was never derived from a Hamiltonian. Replacing both with numerical solutions of the evolution equation was the first change made, before any other verification work.
+The first version of the project used a fixed-density formula with a hand-tuned $\tanh$ for the standard curve, and a Gaussian bump with chosen amplitude, centre and width for a new-physics feature. Both produce plausible-looking plots, but neither can predict anything: changing an oscillation parameter would not change the curve correctly, because the curve was never derived from a Hamiltonian. Replacing both with numerical solutions of the evolution equation was the first change made, before any other verification work.
 
 ## Rule 2: several solvers, shared only where it is safe
 
@@ -22,7 +22,7 @@ The first version of the project used a fixed-density formula with a hand-tuned 
 | Direct time-dependent Schrodinger integration | Independent check of the primary solver | The Hamiltonian function only |
 | Reduced-Hamiltonian method of de Holanda and Smirnov | Independent check in the coupled regime | Inputs only |
 
-The direct integrator deliberately shares nothing with the primary solver except the function that builds $H(r)$. No diagonalization, no eigenvector permutation, no tracking. Agreement between them is therefore evidence, not a self-consistency test.
+The direct integrator deliberately shares nothing with the primary solver except the function that builds $H(r)$. No diagonalization, no eigenvector permutation, no tracking. So when they agree, it means more than a self-consistency test would.
 
 ## Rule 3: separate the pipeline stages
 

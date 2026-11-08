@@ -6,7 +6,7 @@ tags: [overview, intro]
 draft: false
 ---
 
-> **In one minute:** The work here is about neutrinos from the Sun and from exploding stars, and about how well future detectors could measure them. Most of it is computation: building event-rate and sensitivity calculations, reproducing published results, and checking everything against independent methods.
+> The work here is about neutrinos from the Sun and from exploding stars, and about how well future detectors could measure them. Most of it is computation: building event-rate and sensitivity calculations, reproducing published results, and checking everything against independent methods.
 
 ## The questions
 
@@ -18,13 +18,13 @@ draft: false
 
 ## The way of working
 
-Published results get rebuilt from scratch, without the original code, which is how the details that the papers skip over get found. Every important number then has to survive a second method that shares as little code as possible. When something does not match, the mismatch is documented and not tuned away.
+Published results are rebuilt from scratch, without the original code, which helps find details that papers skip over. Important numbers are then checked with a second method that shares as little code as possible. When something does not match, the mismatch is written down, not tuned away.
 
 ## Smaller side projects
 
 A simulation of a technique for extracting the direction of solar neutrinos in a scintillator detector. A pipeline that recovers the first gravitational-wave event from public data. A live muon-detection demonstration for the public at an open day.
 
-## If something here interests a reader
+## Where to start
 
 For students: the [reproduction post](/notes/reproduce-a-paper-from-scratch/) and the [checking habits post](/notes/five-habits-for-checking-a-calculation/) are the most practical. For anyone curious about the physics, start with [the Sun's neutrinos](/notes/sun-neutrinos-that-change-identity/).
 
