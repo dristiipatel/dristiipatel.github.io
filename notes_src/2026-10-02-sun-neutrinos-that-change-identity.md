@@ -3,6 +3,7 @@ title: "The Sun makes one kind of neutrino. Detectors on Earth see another."
 date: 2026-10-02
 summary: "A short, math-free tour of how the Sun's own matter changes the identity of the particles leaving it."
 tags: [neutrinos, Sun, intro]
+section: general
 draft: false
 ---
 

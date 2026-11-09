@@ -3,6 +3,7 @@ title: "Light faster than light? Cherenkov radiation and the muon on the table"
 date: 2026-10-30
 summary: "Why a particle can outrun light inside water, and how that is used to see particles and neutrinos."
 tags: [detectors, Cherenkov, intro]
+section: general
 draft: false
 ---
 

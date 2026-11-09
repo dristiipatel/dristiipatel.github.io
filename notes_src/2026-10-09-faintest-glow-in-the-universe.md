@@ -3,6 +3,7 @@ title: "The faintest glow in the Universe: neutrinos from every supernova that e
 date: 2026-10-09
 summary: "A cosmic background made of neutrinos from all past core-collapse supernovae, and why it has been so hard to find."
 tags: [supernova, DSNB, intro]
+section: general
 draft: false
 ---
 

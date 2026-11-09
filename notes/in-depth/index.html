@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In depth | Field Notes in Physics</title>
+<meta name="description" content="Questions, calculations and sketches from learning neutrino physics.">
+<style>
+:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
+@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
+.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
+nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
+a{color:var(--accent)}
+nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
+h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
+h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
+h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
+.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
+.tagline{color:var(--muted);margin:0 0 2.5rem}
+.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
+.entry h2{margin:0 0 .2rem;font-size:1.25rem}
+.entry a{text-decoration:none}
+.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
+.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
+.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--accent)}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
+img{max-width:100%;height:auto}
+figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
+pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
+code{padding:.1em .3em;border-radius:3px}
+pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
+table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
+th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
+blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
+mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
+footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<h1>Field Notes in Physics</h1><div class='intro'><p>Hi, I'm Dristii. I'm a third-year physics student at IISc in Bengaluru, and this is where I write about my work: mostly neutrino physics, plus whatever else I get curious about.</p>
+<p>I am still learning, so errors will happen. If something looks wrong, email me at <a href="mailto:dristiip@iisc.ac.in">dristiip@iisc.ac.in</a>. Corrections go into the post with a dated note, so the history stays visible.</p>
+<p>Thanks for reading.</p></div><nav class='tabs' aria-label='Sections'><a href='/notes/'>For everyone</a><a href='/notes/in-depth/' aria-current='page'>In depth</a></nav><p class='blurb'>Derivations, numerical checks and notes from research code.</p><div class='entry'><h2><a href='/notes/event-count-twice-the-literature/'>An event count twice the literature value: a fiducial-volume story</a></h2><div class='meta' style='margin:0'>1 November 2026</div><p>A sanity check against a published event count flagged a missing fiducial cut, and a swapped-argument bug hid in the same script.</p></div><div class='entry'><h2><a href='/notes/a-two-percent-bug-in-ten-lines/'>A 2.5% bug in ten lines: rebinning, conservation tests, and a Monte Carlo that disagreed</a></h2><div class='meta' style='margin:0'>28 October 2026</div><p>A rebinning helper dropped slivers at every bin edge without any error. The conservation test passed because it tested the wrong function.</p></div><div class='entry'><h2><a href='/notes/magnus-step-resonance/'>A numerical artifact that looks like physics: step-size resonance in a Magnus integrator</a></h2><div class='meta' style='margin:0'>25 October 2026</div><p>A piecewise-constant propagator gave wrong answers at isolated step counts. How it was found and what the fix was.</p></div><div class='entry'><h2><a href='/notes/when-the-cross-check-disagrees/'>When the independent cross-check disagrees: arctan2 and a retracted claim</a></h2><div class='meta' style='margin:0'>21 October 2026</div><p>Two episodes where an independent check misled, and the habits that came out of them.</p></div><div class='entry'><h2><a href='/notes/two-bugs-in-one-hamiltonian/'>Two bugs in one Hamiltonian: eigenvector tracking and a missing cos^2(theta13)</a></h2><div class='meta' style='margin:0'>18 October 2026</div><p>Overlap-based eigenvector tracking needs the flavour basis and a real one-to-one assignment, and a 0.1% residual that did not shrink with resolution was a modelling error.</p></div><div class='entry'><h2><a href='/notes/verification-first-architecture/'>Building a solver you can trust: the architecture of a verification-first project</a></h2><div class='meta' style='margin:0'>14 October 2026</div><p>How a solar P_ee and sensitivity codebase is organised so that every number has an independent check.</p></div><div class='entry'><h2><a href='/notes/where-does-n-sigma-come-from/'>Where does &#x27;N sigma&#x27; come from in a counting experiment?</a></h2><div class='meta' style='margin:0'>11 October 2026</div><p>Asimov datasets, chi-squared with nuisance parameters, and why normalization pulls act on the prediction.</p></div><div class='entry'><h2><a href='/notes/where-8b-neutrinos-are-born/'>Where are the 8B neutrinos born? Production-zone averaging in P_ee</a></h2><div class='meta' style='margin:0'>7 October 2026</div><p>A single production radius is a simplification. How much it matters depends on how fast n_e changes across the zone.</p></div><div class='entry'><h2><a href='/notes/from-neutrino-energy-to-electron-energy/'>Bins in neutrino energy are not observable: from E_nu to the detected electron</a></h2><div class='meta' style='margin:0'>4 October 2026</div><p>Why a CC event-rate analysis has to convert E_nu into electron kinetic energy and then into reconstructed energy.</p></div><div class='entry'><h2><a href='/notes/sterile-neutrino-in-the-sun/'>A fourth state in the solar Hamiltonian: what a sterile neutrino changes</a></h2><div class='meta' style='margin:0'>1 October 2026</div><p>How a 3+1 extension enters the matter Hamiltonian, and why the ratio of mass splittings decides which approximation is valid.</p></div><div class='entry'><h2><a href='/notes/deuterium-cc-nc-es/'>Why deuterium? Three reaction channels for solar 8B</a></h2><div class='meta' style='margin:0'>23 September 2026</div><p>Thresholds, flavour sensitivity and the role of the neutral-current channel in a deuterated detector.</p></div><div class='entry'><h2><a href='/notes/adiabaticity-landau-zener/'>How adiabatic is the Sun? Landau-Zener and a transfer-matrix check</a></h2><div class='meta' style='margin:0'>19 September 2026</div><p>The adiabatic MSW formula assumes eigenstate labels are conserved. Two ways to check that assumption.</p></div><div class='entry'><h2><a href='/notes/msw-survival-probability-sun/'>Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page</a></h2><div class='meta' style='margin:0'>15 September 2026</div><p>A short derivation of the adiabatic survival probability, with attention to where the theta13 factors enter.</p></div><div class='entry'><h2><a href='/notes/solar-neutrinos-2-5-mev-gap/'>Solar neutrinos between 2 and 5 MeV: where is the data?</a></h2><div class='meta' style='margin:0'>11 September 2026</div><p>The MSW transition in the solar P_ee(E) falls in an energy range that is awkward for every running detector type.</p></div>
+<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</div>
+</body>
+</html>

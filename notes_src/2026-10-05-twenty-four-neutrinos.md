@@ -3,6 +3,7 @@ title: "Twenty-four neutrinos that started a new kind of astronomy"
 date: 2026-10-05
 summary: "In 1987 a handful of neutrino events told us more about a dying star than light could have."
 tags: [supernova, neutrinos, intro]
+section: general
 draft: false
 ---
 

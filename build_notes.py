@@ -33,6 +33,22 @@ AUTHOR = "Dristii Patel"
 HOME_URL = "/"
 NOTES_URL = "/notes/"
 
+# Shown at the top of both Notes list pages, above the tabs.
+INTRO = """<p>Hi, I'm Dristii. I'm a third-year physics student at IISc in Bengaluru, and this is where I write about my work: mostly neutrino physics, plus whatever else I get curious about.</p>
+<p>I am still learning, so errors will happen. If something looks wrong, email me at <a href="mailto:dristiip@iisc.ac.in">dristiip@iisc.ac.in</a>. Corrections go into the post with a dated note, so the history stays visible.</p>
+<p>Thanks for reading.</p>"""
+
+# Each post goes in one section, set with "section:" in its front matter.
+# Posts without that line go in "technical". The first section is the
+# default tab at /notes/; the others get their own page at /notes/<path>/.
+SECTIONS = [
+    {"key": "general", "label": "For everyone", "path": "",
+     "blurb": "Short explanations for anyone curious about the physics."},
+    {"key": "technical", "label": "In depth", "path": "in-depth",
+     "blurb": "Derivations, numerical checks and notes from research code."},
+]
+DEFAULT_SECTION = "technical"
+
 CSS = """
 :root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
 @media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
@@ -51,6 +67,12 @@ h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
 .entry h2{margin:0 0 .2rem;font-size:1.25rem}
 .entry a{text-decoration:none}
 .entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
+.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
+.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--accent)}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
 img{max-width:100%;height:auto}
 figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
 pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
@@ -129,7 +151,16 @@ def parse_post(path):
     meta["draft"] = meta.get("draft", "false").lower() == "true"
     meta["tags"] = [t.strip() for t in meta.get("tags", "").strip("[]").split(",") if t.strip()]
     meta["slug"] = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", path.stem)
+    meta["section"] = meta.get("section", DEFAULT_SECTION)
+    keys = [s["key"] for s in SECTIONS]
+    if meta["section"] not in keys:
+        raise ValueError(f"{path.name}: section must be one of {keys}")
     return meta, m.group(2)
+
+
+def section_url(key):
+    s = next(s for s in SECTIONS if s["key"] == key)
+    return NOTES_URL + (s["path"] + "/" if s["path"] else "")
 
 
 def render_body(md_text):
@@ -169,6 +200,16 @@ def build():
         posts.append(meta)
     posts.sort(key=lambda p: p["date"], reverse=True)
 
+    reserved = {s["path"] for s in SECTIONS if s["path"]} | {"img"}
+    for p in posts:
+        if p["slug"] in reserved:
+            sys.exit(f"Post slug '{p['slug']}' clashes with a section page. Rename the file.")
+    seen = set()
+    for p in posts:
+        if p["slug"] in seen:
+            sys.exit(f"Two posts share the slug '{p['slug']}'. Rename one of the files.")
+        seen.add(p["slug"])
+
     if OUT.exists():
         shutil.rmtree(OUT)
     OUT.mkdir()
@@ -188,7 +229,7 @@ def build():
             description=html.escape(p.get("summary", TAGLINE)),
             css=CSS,
             extra_head=MATHJAX,
-            home=HOME_URL, notes=NOTES_URL, author=AUTHOR,
+            home=HOME_URL, notes=section_url(p["section"]), author=AUTHOR,
             body=body, site_title=SITE_TITLE,
         )
         folder = OUT / p["slug"]
@@ -196,19 +237,35 @@ def build():
         (folder / "index.html").write_text(page, encoding="utf-8")
         print(f"  built: notes/{p['slug']}/")
 
-    entries = "".join(
-        f"<div class='entry'><h2><a href='{NOTES_URL}{p['slug']}/'>{html.escape(p['title'])}</a></h2>"
-        f"<div class='meta' style='margin:0'>{fmt_date(p['date'])}</div>"
-        f"<p>{html.escape(p.get('summary', ''))}</p></div>"
-        for p in posts
-    ) or "<p>No posts yet.</p>"
-    body = f"<h1>{SITE_TITLE}</h1><p class='tagline'>{TAGLINE}</p>{entries}"
-    index = PAGE.format(
-        title=SITE_TITLE, description=TAGLINE, css=CSS, extra_head="",
-        home=HOME_URL, notes=NOTES_URL, author=AUTHOR,
-        body=body, site_title=SITE_TITLE,
-    )
-    (OUT / "index.html").write_text(index, encoding="utf-8")
+    for sec in SECTIONS:
+        tabs = "".join(
+            f"<a href='{section_url(s['key'])}'"
+            + (" aria-current='page'" if s is sec else "")
+            + f">{html.escape(s['label'])}</a>"
+            for s in SECTIONS
+        )
+        entries = "".join(
+            f"<div class='entry'><h2><a href='{NOTES_URL}{p['slug']}/'>{html.escape(p['title'])}</a></h2>"
+            f"<div class='meta' style='margin:0'>{fmt_date(p['date'])}</div>"
+            f"<p>{html.escape(p.get('summary', ''))}</p></div>"
+            for p in posts if p["section"] == sec["key"]
+        ) or "<p>No posts yet.</p>"
+        body = (
+            f"<h1>{SITE_TITLE}</h1><div class='intro'>{INTRO}</div>"
+            f"<nav class='tabs' aria-label='Sections'>{tabs}</nav>"
+            f"<p class='blurb'>{html.escape(sec['blurb'])}</p>{entries}"
+        )
+        title = SITE_TITLE if not sec["path"] else f"{sec['label']} | {SITE_TITLE}"
+        index = PAGE.format(
+            title=title, description=TAGLINE, css=CSS, extra_head="",
+            home=HOME_URL, notes=NOTES_URL, author=AUTHOR,
+            body=body, site_title=SITE_TITLE,
+        )
+        folder = OUT / sec["path"] if sec["path"] else OUT
+        folder.mkdir(exist_ok=True)
+        (folder / "index.html").write_text(index, encoding="utf-8")
+        n = sum(p["section"] == sec["key"] for p in posts)
+        print(f"  list: {section_url(sec['key'])} ({sec['label']}, {n} post(s))")
     print(f"Done: {len(posts)} post(s) in notes/")
 
 

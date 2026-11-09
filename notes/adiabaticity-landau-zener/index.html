@@ -23,6 +23,12 @@ h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
 .entry h2{margin:0 0 .2rem;font-size:1.25rem}
 .entry a{text-decoration:none}
 .entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
+.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
+.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--accent)}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
 img{max-width:100%;height:auto}
 figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
 pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
@@ -39,7 +45,7 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 </head>
 <body>
 <div class="wrap">
-<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<nav><a href="/">Dristii Patel</a><a href="/notes/in-depth/">Notes</a></nav>
 <article><h1>How adiabatic is the Sun? Landau-Zener and a transfer-matrix check</h1><div class='meta'>19 September 2026 &middot; 2 min read &middot; MSW, adiabaticity, numerics</div><p>The closed-form $P_{ee}$ from the <a href="/notes/msw-survival-probability-sun/">previous post</a> rests on one assumption: the neutrino follows its local matter eigenstate all the way out. Near the resonance, where the eigenvalues approach each other, that assumption is exactly what can fail. So how big is the failure for solar neutrinos?</p>
 <h2>The analytic estimate</h2>
 <p>At the resonance the adiabaticity parameter is</p>

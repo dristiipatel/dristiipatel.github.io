@@ -3,6 +3,7 @@ title: "Question-style title here"
 date: 2026-10-25
 summary: "One sentence shown on the Notes index page."
 tags: [neutrinos, learning-note]
+section: technical
 draft: true
 ---
 

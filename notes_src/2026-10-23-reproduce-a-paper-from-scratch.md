@@ -3,6 +3,7 @@ title: "Reproduce a paper from scratch: what it teaches that reading does not"
 date: 2026-10-23
 summary: "A practical guide for undergraduates who want to get into research through a published result."
 tags: [research, students, methods]
+section: general
 draft: false
 ---
 

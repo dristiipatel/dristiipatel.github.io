@@ -3,6 +3,7 @@ title: "What does 5 sigma actually mean? A coin-flip explanation"
 date: 2026-10-12
 summary: "A discovery threshold explained with something anyone can imagine: tossing a fair coin."
 tags: [statistics, intro, methods]
+section: general
 draft: false
 ---
 

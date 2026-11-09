@@ -23,6 +23,12 @@ h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
 .entry h2{margin:0 0 .2rem;font-size:1.25rem}
 .entry a{text-decoration:none}
 .entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
+.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
+.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--accent)}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
 img{max-width:100%;height:auto}
 figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
 pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
@@ -39,7 +45,7 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 </head>
 <body>
 <div class="wrap">
-<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<nav><a href="/">Dristii Patel</a><a href="/notes/in-depth/">Notes</a></nav>
 <article><h1>Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page</h1><div class='meta'>15 September 2026 &middot; 3 min read &middot; MSW, oscillations, theory</div><p>Context from the <a href="/notes/solar-neutrinos-2-5-mev-gap/">previous post</a>: $P_{ee}$ goes from about 0.55 at low energy to about 0.30 at high energy, with the transition at a few MeV. The standard result for this is compact enough to derive in a few lines, and the derivation also shows what has to hold for it to be valid.</p>
 <h2>Setup</h2>
 <p>In the effective two-flavour (1-2) problem, the matter potential $V_e=\sqrt2\,G_F n_e$ acts on $\nu_e$ only. Defining</p>

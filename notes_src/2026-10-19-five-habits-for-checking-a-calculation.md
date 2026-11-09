@@ -3,6 +3,7 @@ title: "Five habits for checking whether a calculation is right"
 date: 2026-10-19
 summary: "Practical checks, with small worked examples, that work for a lab report, a problem set or a research code."
 tags: [methods, computational-physics, intro]
+section: general
 draft: false
 ---
 

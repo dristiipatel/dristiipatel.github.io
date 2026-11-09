@@ -23,6 +23,12 @@ h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
 .entry h2{margin:0 0 .2rem;font-size:1.25rem}
 .entry a{text-decoration:none}
 .entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
+.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
+.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
+.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
+.tabs a:hover{color:var(--accent)}
+.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
+.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
 img{max-width:100%;height:auto}
 figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
 pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
@@ -39,7 +45,7 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 </head>
 <body>
 <div class="wrap">
-<nav><a href="/">Dristii Patel</a><a href="/notes/">Notes</a></nav>
+<nav><a href="/">Dristii Patel</a><a href="/notes/in-depth/">Notes</a></nav>
 <article><h1>An event count twice the literature value: a fiducial-volume story</h1><div class='meta'>1 November 2026 &middot; 3 min read &middot; workflow, event-rates, JUNO, verification</div><p>Context: an event-rate pipeline (<a href="/notes/verification-first-architecture/">architecture post</a>) was extended to a comparison against JUNO's elastic-scattering channel for $^8$B neutrinos. Before comparing anything, the pipeline's absolute event count was checked against a published feasibility study.</p>
 <h2>The warning sign</h2>
 <p>JUNO's own feasibility study quotes roughly 60,000 elastic-scattering signal events over ten years for the full analysis range with a 2 MeV threshold. The idealized calculation (full 20 kt target, no cuts) gave 126,489 events in the narrower 2 to 5 MeV window alone, a factor of about 2.1 above the full-range literature number. A sub-window cannot exceed the full range, so the direction of the discrepancy was already suspicious.</p>

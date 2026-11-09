@@ -3,6 +3,7 @@ title: "Finding a black-hole merger in raw noise: matched filtering for beginner
 date: 2026-10-26
 summary: "How the first gravitational-wave signal was pulled out of the data, using ideas from a noisy room."
 tags: [gravitational-waves, signal-processing, intro]
+section: general
 draft: false
 ---
 

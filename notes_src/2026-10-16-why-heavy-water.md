@@ -3,6 +3,7 @@ title: "Why use heavy water to catch neutrinos? The SNO trick"
 date: 2026-10-16
 summary: "One detector material, three reactions, and a result that did not depend on solar models."
 tags: [detectors, deuterium, SNO, intro]
+section: general
 draft: false
 ---
 
