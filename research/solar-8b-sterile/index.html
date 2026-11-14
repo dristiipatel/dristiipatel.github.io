@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Looking for a sterile neutrino in solar neutrinos | Dristii Patel</title>
+<meta name="description" content="A plain-language summary of my manuscript in preparation: how a deuterated liquid scintillator detector could test for a sterile neutrino in the 2 to 5 MeV solar boron-8 neutrinos.">
+<link rel="canonical" href="https://dristiipatel.github.io/research/solar-8b-sterile/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Looking for a sterile neutrino in solar neutrinos">
+<meta property="og:description" content="Manuscript in preparation. A deuterated liquid scintillator detector could reach the 2 to 5 MeV window that no detector has measured in real time.">
+<meta property="og:url" content="https://dristiipatel.github.io/research/solar-8b-sterile/">
+<meta property="og:image" content="https://dristiipatel.github.io/img/solar-pee-sterile-dip.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d6b68'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Georgia,serif' text-anchor='middle' fill='%23fff'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/reading.css">
+<script src="/assets/theme.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+<a class="who" href="/">Dristii Patel</a>
+<a href="/#research" aria-current="page">Research</a>
+<a href="/notes/">Notes</a>
+<a href="/Dristii_Patel_CV.pdf">CV</a>
+<button id="theme" type="button" aria-label="Switch between light and dark theme">◐</button>
+</header>
+
+<article>
+<h1>Looking for a sterile neutrino in solar neutrinos</h1>
+<p class="meta">Manuscript in preparation · with Dr. Biswaranjan Behera, IISc · not yet peer reviewed</p>
+
+<blockquote><p>Solar boron-8 neutrinos between about 2 and 5 MeV have never been measured in real time. A deuterated liquid scintillator detector could reach that range. I calculated what a sterile neutrino would do to these neutrinos, and how long such a detector would need to see it. This page is a short, plain version of the paper.</p></blockquote>
+
+<h2>The question</h2>
+<p>Neutrinos made in the Sun's core come out as one type, the electron neutrino. On the way out, the Sun's own matter changes some of them into other types, and the chance that a neutrino is still an electron neutrino when it leaves is called the survival probability, P<sub>ee</sub>. At low energy it is about 0.55 and at high energy about 0.30. Between roughly 2 and 5 MeV it is changing from one to the other, and that is the stretch nobody has measured well. Existing detectors lose it to backgrounds or to their energy thresholds.</p>
+<p>If a light sterile neutrino exists, it could bend the curve in exactly this stretch. A deuterium-based detector can see it, because the reaction of an electron neutrino with deuterium has a low threshold (1.44 MeV). So the question is simple to say: what would the dip look like, and could a detector like that tell it from the standard curve?</p>
+
+<h2>What I did</h2>
+<p>I wrote a solver that evolves three neutrino states (electron, a second active type, and the sterile one) outward through realistic solar density profiles, and tracks which state the neutrino is in at each step. I took one benchmark case, with a mass splitting of 1.2 × 10<sup>−5</sup> eV² and a small mixing angle (sin²2θ<sub>14</sub> = 0.005). I also did the same for non-standard interactions, which can also distort the curve.</p>
+
+<figure>
+<img src="/img/solar-pee-sterile-dip.png" alt="Solar electron-neutrino survival probability against neutrino energy. The standard curve falls smoothly from 0.55 to 0.30. The sterile curve dips to about 0.22 near 2.5 MeV, inside the shaded 2 to 5 MeV window. Two non-standard-interaction curves stay close to the standard one. Four Borexino data points are consistent with the standard curve." loading="lazy">
+<figcaption><b>Survival probability against energy.</b> The solid black line is the standard prediction. The red dashed line is the sterile case, which dips to P<sub>ee</sub> ≈ 0.224 at 2.46 MeV, against 0.418 in the standard case. The grey band is the 2 to 5 MeV window. The points are Borexino measurements. Figure 3 of the manuscript.</figcaption>
+</figure>
+
+<h2>What came out</h2>
+<ul>
+<li>The sterile case gives a dip of about 46% at the bottom, near 2.5 MeV. Non-standard interactions give a smooth, nearly flat shift instead (about −0.02 to −0.035 across the window). The shapes are different, so in principle the two can be told apart.</li>
+<li>For a 1 kton heavy-water detector running for 10 years, the sterile case would stand apart from the standard one at about 7.9σ, counting statistical error only. After adding a SNO-like fiducial cut and a photodisintegration background, it is about 6.3σ.</li>
+<li>I compared four deuterated liquid scintillator media (D<sub>2</sub>O, and D<sub>2</sub>O with LAB, Gd-LAB or Te-LAB). The precision on P<sub>ee</sub> changes by only about 1% between them. The reasons to pick one over another lie elsewhere, such as neutron tagging.</li>
+<li>I compared this with the elastic-scattering channel at JUNO. In the cases I looked at, the two are competitive and neither is clearly ahead. One difference is that the charged-current channel measures P<sub>ee</sub> directly, without the mixing with other flavours that elastic scattering has.</li>
+<li>A standard analytic formula for sterile neutrinos (Giunti and Li) gives a correction of only about 0.14% here. The full calculation gives 46%. That is not a contradiction. The formula assumes the sterile mass splitting is much larger than the solar one, and here it is about six times smaller.</li>
+</ul>
+
+<figure>
+<img src="/img/solar-pee-perturbative.png" alt="Top panel: survival probability against energy for the standard case, the full three-by-three solver and the perturbative formula. The perturbative curve lies on top of the standard one, and the full solver dips. Bottom panel: the difference from the standard curve on a symmetric log scale, about 0.001 for the perturbative formula and about 0.19 at the dip for the full solver." loading="lazy">
+<figcaption><b>Why the full calculation is needed.</b> Top: the perturbative formula (blue) cannot be told apart from the standard curve, while the full solver (red) dips. Bottom: the same difference on a log scale, where the two differ by a factor of about 400. Figure 2 of the manuscript.</figcaption>
+</figure>
+
+<h2>How I checked it</h2>
+<ul>
+<li>Setting the sterile mixing to zero gives back the standard formula to about 6 × 10<sup>−5</sup> in P<sub>ee</sub>.</li>
+<li>At the Sun's surface, the eigenvectors match the vacuum mixing matrix.</li>
+<li>The dip does not change when I use 300, 500 or 800 radial steps.</li>
+<li>Two checks that do not assume the neutrino follows one eigenstate agree with the main solver: a transfer-matrix calculation (within 1.4 × 10<sup>−3</sup> in P<sub>ee</sub>) and a direct integration of the Schrödinger equation (within 3 × 10<sup>−4</sup>).</li>
+</ul>
+<p>Two bugs turned up along the way. My first version ordered the states by mass instead of by flavour, which made the tracking mislabel states and moved the dip by about 0.2 MeV. I had also left out a cos²θ<sub>13</sub> factor in the matter term, which moves the dip by about 0.13 MeV. I wrote about both in <a href="/notes/two-bugs-in-one-hamiltonian/">a note on the Hamiltonian</a>.</p>
+
+<h2>What I have not done</h2>
+<div class="limits">
+<p>The benchmark is not a fit. I have not checked it against global analyses of solar and reactor data, and it may already be in tension with existing SNO and Super-Kamiokande spectra. I present the result as the sensitivity of a deuterium detector to a distortion of this shape, and not as a prediction that it exists.</p>
+<p>The JUNO comparison is indicative. I simplified its backgrounds and efficiencies, and my own detector has no signal-efficiency factor. The oscillation parameters match NuFIT 4.0 and Borexino's choices, and I haven't propagated the small difference to NuFIT 5.0. The significances are statistical, with simple background models.</p>
+</div>
+
+<h2>Code</h2>
+<p>The calculation is on GitLab: <a href="https://gitlab.com/dristiipatel/solar-pee-sensitivity">gitlab.com/dristiipatel/solar-pee-sensitivity</a>. If you spot a mistake in any of this, please email me at <a href="mailto:dristiip@iisc.ac.in">dristiip@iisc.ac.in</a>.</p>
+</article>
+
+<footer>
+<a href="/">Home</a> · <a href="/notes/">Notes</a> · <a href="/Dristii_Patel_CV.pdf">CV</a> · Dristii Patel, IISc Bengaluru
+</footer>
+</div>
+</body>
+</html>

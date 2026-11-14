@@ -5,48 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page | Field Notes in Physics</title>
 <meta name="description" content="A short derivation of the adiabatic survival probability, with attention to where the theta13 factors enter.">
-<style>
-:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
-@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
-.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
-nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
-a{color:var(--accent)}
-nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
-h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
-h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
-h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
-.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
-.tagline{color:var(--muted);margin:0 0 2.5rem}
-.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
-.entry h2{margin:0 0 .2rem;font-size:1.25rem}
-.entry a{text-decoration:none}
-.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
-.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
-.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
-.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
-.tabs a:hover{color:var(--accent)}
-.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
-.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
-img{max-width:100%;height:auto}
-figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
-pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
-code{padding:.1em .3em;border-radius:3px}
-pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
-table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
-th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
-blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
-mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
-footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
-</style>
+<meta property="og:title" content="Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page">
+<meta property="og:description" content="A short derivation of the adiabatic survival probability, with attention to where the theta13 factors enter.">
+<meta property="og:type" content="article">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d6b68'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Georgia,serif' text-anchor='middle' fill='%23fff'%3ED%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/reading.css">
+<script src="/assets/theme.js"></script>
 <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
 <div class="wrap">
-<nav><a href="/">Dristii Patel</a><a href="/notes/in-depth/">Notes</a></nav>
-<article><h1>Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page</h1><div class='meta'>15 September 2026 &middot; 3 min read &middot; MSW, oscillations, theory</div><p>Context from the <a href="/notes/solar-neutrinos-2-5-mev-gap/">previous post</a>: $P_{ee}$ goes from about 0.55 at low energy to about 0.30 at high energy, with the transition at a few MeV. The standard result for this is compact enough to derive in a few lines, and the derivation also shows what has to hold for it to be valid.</p>
+<header class="top">
+<a class="who" href="/">Dristii Patel</a>
+<a href="/#research">Research</a>
+<a href="/notes/in-depth/" aria-current="page">Notes</a>
+<a href="/Dristii_Patel_CV.pdf">CV</a>
+<button id="theme" type="button" aria-label="Switch between light and dark theme">&#9680;</button>
+</header>
+<article><h1>Why does P_ee(E) fall from 0.55 to 0.30? The adiabatic MSW formula in one page</h1><p class='meta'>15 September 2026 &middot; 3 min read<span class='chips'><span class='chip'>MSW</span><span class='chip'>oscillations</span><span class='chip'>theory</span></span></p><p>Context from the <a href="/notes/solar-neutrinos-2-5-mev-gap/">previous post</a>: $P_{ee}$ goes from about 0.55 at low energy to about 0.30 at high energy, with the transition at a few MeV. The standard result for this is compact enough to derive in a few lines, and the derivation also shows what has to hold for it to be valid.</p>
 <h2>Setup</h2>
 <p>In the effective two-flavour (1-2) problem, the matter potential $V_e=\sqrt2\,G_F n_e$ acts on $\nu_e$ only. Defining</p>
 <p>$$\varepsilon \equiv \frac{2 V_e E \cos^2\theta_{13}}{\Delta m^2_{21}},$$</p>
@@ -74,8 +53,8 @@ footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:
 <li>A single production radius is assumed. The real production zone is extended (<a href="/notes/where-8b-neutrinos-are-born/">a later post</a>).</li>
 <li>Non-adiabatic transitions are neglected.</li>
 <li>Earth regeneration at night is not included.</li>
-</ul></article>
-<footer>Field Notes in Physics &middot; Dristii Patel</footer>
+</ul><p class='fixes'>If something here looks wrong, please email me at <a href='mailto:dristiip@iisc.ac.in'>dristiip@iisc.ac.in</a>. Corrections go into the post with a dated note.</p></article><nav class='pager' aria-label='More notes'><a class='prev' href='/notes/solar-neutrinos-2-5-mev-gap/'><small>&larr; Earlier</small>Solar neutrinos between 2 and 5 MeV: where is the data?</a><a class='next' href='/notes/adiabaticity-landau-zener/'><small>Later &rarr;</small>How adiabatic is the Sun? Landau-Zener and a transfer-matrix check</a></nav>
+<footer>Field Notes in Physics &middot; Dristii Patel &middot; <a href="/">Home</a> &middot; <a href="mailto:dristiip@iisc.ac.in">Email</a></footer>
 </div>
 </body>
 </html>

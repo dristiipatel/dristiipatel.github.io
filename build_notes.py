@@ -49,45 +49,15 @@ SECTIONS = [
 ]
 DEFAULT_SECTION = "technical"
 
-CSS = """
-:root{--bg:#fbfaf7;--fg:#1d1d1f;--muted:#6b6b72;--accent:#2f5d8a;--line:#e3e0d8;--code:#f1efe9}
-@media (prefers-color-scheme:dark){:root{--bg:#15171a;--fg:#e8e6e1;--muted:#9a9aa3;--accent:#8db6e0;--line:#2c2f34;--code:#1f2227}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.7 Georgia,'Times New Roman',serif}
-.wrap{max-width:42rem;margin:0 auto;padding:2rem 1.25rem 4rem}
-nav{display:flex;gap:1.25rem;font:15px/1 system-ui,sans-serif;margin-bottom:3rem;flex-wrap:wrap}
-a{color:var(--accent)}
-nav a{text-decoration:none;color:var(--muted)}nav a:hover{color:var(--accent)}
-h1{font-size:2rem;line-height:1.25;margin:0 0 .4rem}
-h2{font-size:1.35rem;margin:2.2rem 0 .5rem}
-h3{font-size:1.1rem;margin:1.6rem 0 .4rem}
-.meta{font:14px/1.4 system-ui,sans-serif;color:var(--muted);margin-bottom:2rem}
-.tagline{color:var(--muted);margin:0 0 2.5rem}
-.entry{padding:1.1rem 0;border-top:1px solid var(--line)}
-.entry h2{margin:0 0 .2rem;font-size:1.25rem}
-.entry a{text-decoration:none}
-.entry p{margin:.3rem 0 0;color:var(--muted);font-size:16px}
-.intro{margin:0 0 2rem}.intro p{margin:0 0 .8rem}
-.tabs{display:flex;gap:1.5rem;flex-wrap:wrap;border-bottom:1px solid var(--line);margin:0 0 .8rem;font:16px/1 system-ui,sans-serif}
-.tabs a{text-decoration:none;color:var(--muted);padding:.6rem 0;margin-bottom:-1px;border-bottom:2px solid transparent}
-.tabs a:hover{color:var(--accent)}
-.tabs a[aria-current=page]{color:var(--fg);border-bottom-color:var(--accent);font-weight:600}
-.blurb{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin:0 0 .5rem}
-img{max-width:100%;height:auto}
-figure{margin:1.8rem 0}figcaption{font:14px/1.5 system-ui,sans-serif;color:var(--muted);margin-top:.4rem}
-pre,code{background:var(--code);font:14.5px/1.5 ui-monospace,Menlo,Consolas,monospace}
-code{padding:.1em .3em;border-radius:3px}
-pre{padding:.9rem 1rem;overflow-x:auto;border-radius:4px}pre code{padding:0;background:none}
-table{border-collapse:collapse;margin:1.5rem 0;font:15px/1.5 system-ui,sans-serif;display:block;overflow-x:auto}
-th,td{border-bottom:1px solid var(--line);padding:.4rem .8rem;text-align:left}
-blockquote{margin:1.5rem 0;padding-left:1rem;border-left:3px solid var(--line);color:var(--muted)}
-mjx-container[display=true]{overflow-x:auto;overflow-y:hidden}
-footer{margin-top:4rem;padding-top:1.2rem;border-top:1px solid var(--line);font:14px/1.5 system-ui,sans-serif;color:var(--muted)}
-"""
-
 MATHJAX = """<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]}};</script>
 <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>"""
 
+FONTS = """<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">"""
+
+FAVICON = """<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d6b68'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Georgia,serif' text-anchor='middle' fill='%23fff'%3ED%3C/text%3E%3C/svg%3E">"""
+
+# The style lives in assets/reading.css and is shared with the research page.
 PAGE = """<!doctype html>
 <html lang="en">
 <head>
@@ -95,14 +65,26 @@ PAGE = """<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{description}">
-<style>{css}</style>
+<meta property="og:title" content="{og_title}">
+<meta property="og:description" content="{description}">
+<meta property="og:type" content="{og_type}">
+{favicon}
+{fonts}
+<link rel="stylesheet" href="/assets/reading.css">
+<script src="/assets/theme.js"></script>
 {extra_head}
 </head>
 <body>
 <div class="wrap">
-<nav><a href="{home}">{author}</a><a href="{notes}">Notes</a></nav>
+<header class="top">
+<a class="who" href="{home}">{author}</a>
+<a href="/#research">Research</a>
+<a href="{notes}" aria-current="page">Notes</a>
+<a href="/Dristii_Patel_CV.pdf">CV</a>
+<button id="theme" type="button" aria-label="Switch between light and dark theme">&#9680;</button>
+</header>
 {body}
-<footer>{site_title} &middot; {author}</footer>
+<footer>{site_title} &middot; {author} &middot; <a href="/">Home</a> &middot; <a href="mailto:dristiip@iisc.ac.in">Email</a></footer>
 </div>
 </body>
 </html>
@@ -218,16 +200,36 @@ def build():
 
     for p in posts:
         minutes = max(1, round(p["words"] / 200))
-        tags = (" &middot; " + ", ".join(p["tags"])) if p["tags"] else ""
+        chips = ""
+        if p["tags"]:
+            chips = "<span class='chips'>" + "".join(
+                f"<span class='chip'>{html.escape(t)}</span>" for t in p["tags"]) + "</span>"
+        # Older / newer post in the same tab, so a reader can keep going.
+        same = [q for q in posts if q["section"] == p["section"]]
+        i = same.index(p)
+        older = same[i + 1] if i + 1 < len(same) else None
+        newer = same[i - 1] if i > 0 else None
+        pager = "<nav class='pager' aria-label='More notes'>"
+        if older:
+            pager += (f"<a class='prev' href='{NOTES_URL}{older['slug']}/'>"
+                      f"<small>&larr; Earlier</small>{html.escape(older['title'])}</a>")
+        if newer:
+            pager += (f"<a class='next' href='{NOTES_URL}{newer['slug']}/'>"
+                      f"<small>Later &rarr;</small>{html.escape(newer['title'])}</a>")
+        pager += "</nav>"
+        fixes = ("<p class='fixes'>If something here looks wrong, please email me at "
+                 "<a href='mailto:dristiip@iisc.ac.in'>dristiip@iisc.ac.in</a>. "
+                 "Corrections go into the post with a dated note.</p>")
         body = (
             f"<article><h1>{html.escape(p['title'])}</h1>"
-            f"<div class='meta'>{fmt_date(p['date'])} &middot; {minutes} min read{tags}</div>"
-            f"{p['html']}</article>"
+            f"<p class='meta'>{fmt_date(p['date'])} &middot; {minutes} min read{chips}</p>"
+            f"{p['html']}{fixes}</article>{pager}"
         )
+        desc = html.escape(p.get("summary", TAGLINE))
         page = PAGE.format(
             title=f"{html.escape(p['title'])} | {SITE_TITLE}",
-            description=html.escape(p.get("summary", TAGLINE)),
-            css=CSS,
+            og_title=html.escape(p["title"]), og_type="article",
+            description=desc, favicon=FAVICON, fonts=FONTS,
             extra_head=MATHJAX,
             home=HOME_URL, notes=section_url(p["section"]), author=AUTHOR,
             body=body, site_title=SITE_TITLE,
@@ -246,8 +248,9 @@ def build():
         )
         entries = "".join(
             f"<div class='entry'><h2><a href='{NOTES_URL}{p['slug']}/'>{html.escape(p['title'])}</a></h2>"
-            f"<div class='meta' style='margin:0'>{fmt_date(p['date'])}</div>"
-            f"<p>{html.escape(p.get('summary', ''))}</p></div>"
+            f"<p class='meta'>{fmt_date(p['date'])}"
+            + ("<span class='chips'>" + "".join(f"<span class='chip'>{html.escape(t)}</span>" for t in p["tags"]) + "</span>" if p["tags"] else "")
+            + f"</p><p>{html.escape(p.get('summary', ''))}</p></div>"
             for p in posts if p["section"] == sec["key"]
         ) or "<p>No posts yet.</p>"
         body = (
@@ -257,7 +260,8 @@ def build():
         )
         title = SITE_TITLE if not sec["path"] else f"{sec['label']} | {SITE_TITLE}"
         index = PAGE.format(
-            title=title, description=TAGLINE, css=CSS, extra_head="",
+            title=title, og_title=title, og_type="website",
+            description=TAGLINE, favicon=FAVICON, fonts=FONTS, extra_head="",
             home=HOME_URL, notes=NOTES_URL, author=AUTHOR,
             body=body, site_title=SITE_TITLE,
         )

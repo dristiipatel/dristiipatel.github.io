@@ -3,15 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dristii Patel | Physics Student, IISc Bangalore</title>
-<meta name="description" content="Dristii Patel is a BS (Research) Physics student at the Indian Institute of Science, Bengaluru, working on supernova and solar neutrino detection and contributing to the open-source SNEWPY package.">
+<title>Dristii Patel | Physics student, IISc Bengaluru</title>
+<meta name="description" content="Dristii Patel is a BS (Research) Physics student at the Indian Institute of Science, Bengaluru. She works on supernova and solar neutrino detection and contributes to the open-source SNEWPY package.">
 <link rel="canonical" href="https://dristiipatel.github.io/">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Dristii Patel | Physics Student, IISc Bangalore">
+<meta property="og:title" content="Dristii Patel | Physics student, IISc Bengaluru">
 <meta property="og:description" content="Neutrino physics, particle detectors and computational astroparticle physics.">
 <meta property="og:url" content="https://dristiipatel.github.io/">
+<meta property="og:image" content="https://dristiipatel.github.io/img/solar-pee-sterile-dip.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231d6b68'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Georgia,serif' text-anchor='middle' fill='%23fff'%3ED%3C/text%3E%3C/svg%3E">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Dristii Patel","url":"https://dristiipatel.github.io/","email":"mailto:dristiip@iisc.ac.in","jobTitle":"Undergraduate Researcher in Physics","affiliation":{"@type":"CollegeOrUniversity","name":"Indian Institute of Science, Bengaluru"},"knowsAbout":["Neutrino physics","Particle detectors","Computational astroparticle physics","Supernova neutrinos","Solar neutrinos"],"sameAs":["https://github.com/dristiipatel","https://gitlab.com/dristiipatel","https://www.linkedin.com/in/dristii-patel"]}
+{"@context":"https://schema.org","@type":"Person","name":"Dristii Patel","url":"https://dristiipatel.github.io/","email":"mailto:dristiip@iisc.ac.in","jobTitle":"Undergraduate Researcher in Physics","affiliation":{"@type":"CollegeOrUniversity","name":"Indian Institute of Science, Bengaluru"},"knowsAbout":["Neutrino physics","Particle detectors","Computational astroparticle physics","Supernova neutrinos","Solar neutrinos"],"sameAs":["https://github.com/dristiipatel","https://gitlab.com/dristiipatel","https://www.linkedin.com/in/dristii-patel-ab4127319"]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -25,6 +27,8 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "DM Sans",syst
 a{color:var(--acc)}
 a:focus-visible,button:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:3px}
 .mono{font-family:"IBM Plex Mono",ui-monospace,monospace}
+.skip{position:absolute;left:-9999px;top:0;background:var(--acc);color:var(--on-acc);padding:8px 14px;z-index:10}
+.skip:focus{left:12px;top:12px}
 
 /* layout: sticky sidebar + wide content */
 .page{max-width:1380px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:280px minmax(0,1fr)}
@@ -41,8 +45,10 @@ aside{position:sticky;top:0;height:100vh;overflow-y:auto;padding:56px 32px 32px 
 .links{display:flex;flex-wrap:wrap;gap:6px 16px;font:400 13px/1.6 "IBM Plex Mono",ui-monospace,monospace}
 .links a{color:var(--mute);text-decoration:none;border-bottom:1px solid var(--line)}
 .links a:hover{color:var(--acc);border-color:var(--acc)}
-.btn{display:inline-block;background:var(--acc);color:var(--on-acc);padding:9px 20px;border-radius:999px;text-decoration:none;font:500 15px/1.4 "DM Sans",sans-serif;align-self:flex-start}
+.btns{display:flex;flex-wrap:wrap;gap:10px}
+.btn{display:inline-block;background:var(--acc);color:var(--on-acc);padding:9px 20px;border-radius:999px;text-decoration:none;font:500 15px/1.4 "DM Sans",sans-serif;border:1px solid var(--acc)}
 .btn:hover{opacity:.88}
+.btn.ghost{background:transparent;color:var(--acc)}
 
 main{padding:56px 0 24px 64px;min-width:0}
 .hero h1{font:600 clamp(40px,5.2vw,64px)/1.08 "Fraunces",Georgia,serif;margin:0 0 8px;letter-spacing:-.015em}
@@ -50,6 +56,12 @@ main{padding:56px 0 24px 64px;min-width:0}
 .sub{font:400 14px/1.6 "IBM Plex Mono",ui-monospace,monospace;color:var(--mute);margin:0 0 28px}
 .lead{font-size:21px;line-height:1.65;max-width:62ch;margin:0 0 18px}
 p{margin:0 0 16px;max-width:72ch}
+.now{max-width:72ch;margin:28px 0 0;border:1px solid var(--line);background:var(--card);border-radius:10px;padding:18px 24px}
+.now h2{font:600 13px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--acc);margin:0 0 12px}
+.now ul{margin:0;padding:0;list-style:none}
+.now li{margin:0 0 8px;font-size:16px;line-height:1.6;padding-left:18px;position:relative}
+.now li:last-child{margin-bottom:0}
+.now li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;background:var(--sun);border-radius:50%}
 
 section{border-top:1px solid var(--line);margin-top:48px;padding-top:26px;scroll-margin-top:24px}
 .sh{display:flex;align-items:baseline;gap:28px;margin:0 0 26px}
@@ -59,20 +71,37 @@ h3{font:600 18px/1.4 "DM Sans",sans-serif;margin:0 0 8px}
 h3.sq::before{content:"";display:inline-block;width:10px;height:10px;background:var(--acc);margin-right:14px;vertical-align:1px}
 .meta{font:400 13px/1.6 "IBM Plex Mono",ui-monospace,monospace;color:var(--mute);margin:0 0 10px}
 .block{margin:0 0 34px}
+.more{font:400 14px/1.6 "IBM Plex Mono",ui-monospace,monospace;margin:0}
+.more a{margin-right:18px}
+.feature{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:8px 40px;align-items:start}
+.feature figure{margin:6px 0 0}
+.feature img{display:block;width:100%;height:auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px}
+.feature figcaption{font:400 13px/1.55 "IBM Plex Mono",ui-monospace,monospace;color:var(--mute);margin-top:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
 .card{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:22px 24px}
 .card p{margin:0;max-width:none;font-size:16px;line-height:1.65}
 .card h3{font-size:17px}
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px 48px;max-width:1000px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 48px;max-width:1000px}
 .two p,.two div{margin:0}
 .two b{display:block;font-weight:600}
+.sub3{font:600 13px/1.2 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:30px 0 14px}
+.notes{list-style:none;margin:0 0 18px;padding:0;max-width:72ch}
+.notes li{padding:12px 0;border-top:1px solid var(--line)}
+.notes li:last-child{border-bottom:1px solid var(--line)}
+.notes a{font-weight:600;text-decoration:none}
+.notes a:hover{text-decoration:underline}
+.notes small{display:block;font:400 13px/1.6 "IBM Plex Mono",ui-monospace,monospace;color:var(--mute);margin-top:2px}
+.notes p{margin:2px 0 0;font-size:15.5px;line-height:1.6;color:var(--mute)}
 .big{font:500 22px/1.4 "Fraunces",Georgia,serif}
 .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:20px}
 .photos img{width:100%;border-radius:10px;display:block}
-footer{margin-top:64px;padding:24px 0 48px;border-top:1px solid var(--line);color:var(--mute);font:400 13px/1.6 "IBM Plex Mono",ui-monospace,monospace}
+footer{margin-top:64px;padding:24px 0 48px;border-top:1px solid var(--line);color:var(--mute);font:400 13px/1.7 "IBM Plex Mono",ui-monospace,monospace}
+footer a{color:var(--mute)}
+footer a:hover{color:var(--acc)}
 #theme{position:fixed;right:22px;bottom:22px;width:40px;height:40px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:18px;cursor:pointer}
 #theme:hover{border-color:var(--acc)}
 
+@media(max-width:1180px){.feature{display:block}.feature figure{max-width:460px;margin:4px 0 18px}}
 @media(max-width:900px){
 .page{display:block;padding:0 22px}
 aside{position:static;height:auto;overflow:visible;border-right:0;border-bottom:1px solid var(--line);padding:32px 0 24px}
@@ -80,11 +109,14 @@ aside{position:static;height:auto;overflow:visible;border-right:0;border-bottom:
 .toc li{border-bottom:0}
 main{padding:36px 0 16px}
 .sh{gap:18px}
+.lead{font-size:19px}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{aside,#theme{display:none}.page{display:block}main{padding:0}}
 </style>
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 <div class="page">
 
 <aside>
@@ -97,12 +129,12 @@ main{padding:36px 0 16px}
 </div>
 <nav aria-label="Sections">
 <ol class="toc">
-<li><a href="#work"><span>01</span>What I work on</a></li>
-<li><a href="#research"><span>02</span>Research</a></li>
-<li><a href="#software"><span>03</span>Open source</a></li>
-<li><a href="#projects"><span>04</span>Projects</a></li>
-<li><a href="#skills"><span>05</span>Skills</a></li>
-<li><a href="#honors"><span>06</span>Education &amp; honors</a></li>
+<li><a href="#research"><span>01</span>Research</a></li>
+<li><a href="#software"><span>02</span>Open source</a></li>
+<li><a href="#projects"><span>03</span>Projects</a></li>
+<li><a href="#notes"><span>04</span>Notes</a></li>
+<li><a href="#honors"><span>05</span>Education &amp; honors</a></li>
+<li><a href="#skills"><span>06</span>Skills</a></li>
 <li><a href="#beyond"><span>07</span>Beyond the lab</a></li>
 <li><a href="#outside"><span>08</span>Outside physics</a></li>
 <li><a href="#contact"><span>09</span>Contact</a></li>
@@ -110,60 +142,77 @@ main{padding:36px 0 16px}
 </nav>
 <div class="links">
 <a href="mailto:dristiip@iisc.ac.in">Email</a>
-<a href="https://www.linkedin.com/in/dristii-patel">LinkedIn</a>
+<a href="https://www.linkedin.com/in/dristii-patel-ab4127319">LinkedIn</a>
 <a href="https://github.com/dristiipatel">GitHub</a>
 <a href="https://gitlab.com/dristiipatel">GitLab</a>
 </div>
-<a class="btn" href="Dristii_Patel_CV.pdf">Read my CV</a> <a class="btn" href="notes/">Notes</a>
+<div class="btns"><a class="btn" href="Dristii_Patel_CV.pdf">Read my CV</a><a class="btn ghost" href="notes/">Notes</a></div>
 </aside>
 
 <main id="top">
 <div class="hero">
-<h1>Hi, I'm Dristii</h1>
+<h1>Hi, I'm <span>Dristii</span></h1>
 <p class="sub">Undergraduate researcher in physics · Centre for High Energy Physics, IISc</p>
-<p class="lead">I'm a third-year physics student at the Indian Institute of Science, working on the detection of neutrinos from supernovae and from the Sun. I use computational models to work out what different detectors can measure, and how well, before anyone builds them.</p>
-<p>I work with Dr. Biswaranjan Behera, and I contribute to the open-source <a href="https://github.com/SNEWS2/snewpy">SNEWPY</a> package used by the supernova neutrino community. I'm aiming for a PhD in neutrino or high-energy physics.</p>
+<p class="lead">I'm a third-year physics student at the Indian Institute of Science. I work on neutrino detection, mostly with computer models that estimate what a detector would see from a supernova or from the Sun, and how well it could tell one idea from another.</p>
+<p>I work with Dr. Biswaranjan Behera, and I'm contributing a module to <a href="https://github.com/SNEWS2/snewpy">SNEWPY</a>, an open-source Python package used by the supernova neutrino community. I like to check my calculations against published numbers, and to write down honestly where they don't match.</p>
+
+<div class="now">
+<h2>Right now</h2>
+<ul>
+<li>Writing up a paper with Dr. Behera on sterile neutrinos and solar neutrinos. <a href="research/solar-8b-sterile/">Read the summary</a>.</li>
+<li>Pull request #453, a diffuse supernova neutrino background module, is under review for SNEWPY 2.0.</li>
+<li>Looking for research internships, and for PhD programmes in neutrino and particle physics when I finish in 2028.</li>
+</ul>
+</div>
 </div>
 
-<section id="work">
-<div class="sh"><span class="n">01</span><h2>What I work on</h2></div>
-<p>Neutrinos interact so weakly with matter that most of them pass straight through the Earth. The same property lets them escape the Sun's core and the interior of a collapsing massive star, carrying information that light cannot. Detecting them takes very large detectors and careful calculation of what each one should see.</p>
-<p>My work is on that calculation. Given a neutrino source, a detector material and a set of assumptions about neutrino physics, I compute how many events the detector would record, in which reaction channels and at what energies, and whether that is enough to tell one hypothesis from another. My interests sit between neutrino physics, particle detectors and computational astroparticle physics.</p>
-</section>
-
 <section id="research">
-<div class="sh"><span class="n">02</span><h2>Research</h2></div>
+<div class="sh"><span class="n">01</span><h2>Research</h2></div>
 <p class="meta">Centre for High Energy Physics, IISc · Supervisor: Dr. Biswaranjan Behera · 2025 to present</p>
-<p>The group works with deuterated liquid scintillator detectors. Deuterium lets a detector respond to several kinds of neutrino reactions at once, which makes it useful for separating flavours. My research has three connected parts.</p>
+<p>The group works with deuterated liquid scintillator (DLS) detectors. Deuterium lets one detector respond to several kinds of neutrino reaction, which helps to separate the flavours. My work is computational and has three parts.</p>
+
+<div class="block">
+<h3 class="sq">Solar neutrinos and a possible sterile neutrino</h3>
+<p class="meta">Manuscript in preparation · with Dr. Behera</p>
+<div class="feature">
+<div>
+<p>Boron-8 neutrinos from the Sun have not been measured in real time between about 2 and 5 MeV. Existing detectors run into backgrounds or thresholds there. A DLS detector can reach that range.</p>
+<p>I compute how a light sterile neutrino would change the survival probability of these neutrinos, by evolving the quantum state numerically through the Sun. The benchmark case has a clear dip near 2.5 MeV. For a 1 kton detector running for 10 years, it could be told apart from the standard curve at about 6σ, once a fiducial cut and a background are included. I also compare four detector media, the day-night asymmetry, and JUNO's elastic-scattering channel. The paper lists what I have not checked yet, such as how the benchmark sits against existing solar data.</p>
+<p class="more"><a href="research/solar-8b-sterile/">Plain-language summary</a><a href="https://gitlab.com/dristiipatel/solar-pee-sensitivity">Code</a></p>
+</div>
+<figure>
+<a href="research/solar-8b-sterile/"><img src="img/solar-pee-sterile-dip.png" alt="Survival probability of solar neutrinos against energy. The sterile-neutrino curve dips near 2.5 MeV while the standard curve falls smoothly." loading="lazy"></a>
+<figcaption>The sterile case (red) dips inside the 2 to 5 MeV window.</figcaption>
+</figure>
+</div>
+</div>
 
 <div class="block">
 <h3 class="sq">Building the event-rate model</h3>
-<p>The starting point was a full event-rate pipeline for supernova neutrinos in these detectors, covering neutrino flux, deuteron cross sections, detector light response and the charged-current, neutral-current and elastic-scattering channels. I built it from the published description of an earlier study (Chauhan, Dasgupta and Datar, 2021), and it agrees on neutral-current rates to within 1 to 3%. An initial 17 to 20% gap in the charged-current rates came from coarse sampling in the printed cross-section tables, and fell below 4% with the original tables. I then extended the model to recoil-neutron spectra and secondary scintillation.</p>
+<p class="meta"><a href="https://gitlab.com/dristiipatel/dls-supernova-reproduction">Code on GitLab</a></p>
+<p>The starting point was an event-rate pipeline for supernova neutrinos in these detectors. It covers the neutrino flux, deuteron cross sections, the detector's light response, and the charged-current, neutral-current and elastic-scattering channels. I built it from the published description of an earlier study (Chauhan, Dasgupta and Datar, 2021), without their code. Neutral-current rates agree to within 1 to 3%. The charged-current rates started 17 to 20% off. I ruled out a coding error with a second, independent implementation, and found the cause in coarse sampling of the printed cross-section tables. With the original tables the gap fell below 4%. I then extended the model to recoil-neutron spectra and secondary scintillation.</p>
 </div>
 
 <div class="block">
 <h3 class="sq">Neutrino mass ordering across eight detectors</h3>
-<p>Using that model, I compared eight detector configurations, from water and heavy water to doped and loaded scintillators, on how well a future galactic supernova could reveal the ordering of the neutrino masses. Switching to time-dependent supernova fluxes with adaptive time-binning recovers sensitivity from the early accretion phase that whole-burst analyses wash out. The comparison also showed that the choice of supernova simulation changes the answer more than most detector choices do.</p>
-</div>
-
-<div class="block">
-<h3 class="sq">Solar neutrinos and a possible sterile neutrino</h3>
-<p>I compute the survival probability of boron-8 solar neutrinos under the standard three-flavour picture and under a model with an extra sterile neutrino, by evolving the quantum state through realistic solar density profiles. The calculation identifies the energy window where the two models differ most, and the exposure needed to distinguish them. It also covers the day-night asymmetry caused by neutrinos crossing the Earth, in a 1 kton detector. A manuscript is in preparation.</p>
+<p class="meta"><a href="https://gitlab.com/dristiipatel/detector_8cases">Code on GitLab</a></p>
+<p>Using that model, I compared eight detector configurations, from water and heavy water to doped and loaded scintillators, on how well a future galactic supernova could reveal the ordering of the neutrino masses. Using time-dependent supernova fluxes with adaptive time-binning recovers sensitivity from the early accretion phase, which whole-burst analyses wash out. The comparison also showed that the choice of supernova simulation changes the answer more than most detector choices do.</p>
 </div>
 </section>
 
 <section id="software">
-<div class="sh"><span class="n">03</span><h2>Open source</h2></div>
+<div class="sh"><span class="n">02</span><h2>Open source</h2></div>
 <div class="block">
 <h3 class="sq"><a href="https://github.com/SNEWS2/snewpy">SNEWPY</a>: diffuse supernova neutrino background module</h3>
-<p class="meta">SNEWS2 Collaboration · 2026 to present · pull request under review</p>
-<p>SNEWPY is the Python package used by the supernova neutrino community to turn supernova simulations into predicted detector signals. I'm contributing a module for the diffuse supernova neutrino background, the faint, steady flux from all past supernovae in the universe. It computes the redshift-dependent flux from cosmological core-collapse rates and mass-weighted progenitor spectra, with flavour conversion for both mass orderings, and it reuses SNEWPY's existing flux, flavour-transformation and rate-calculation tools instead of duplicating them. It is backed by a 21-test suite and has been revised through the maintainers' code review.</p>
+<p class="meta">SNEWS2 Collaboration · 2026 to present · pull request #453 under review</p>
+<p>SNEWPY turns supernova simulations into predicted detector signals. I'm adding a module for the diffuse supernova neutrino background, the faint, steady flux from all past supernovae in the universe. It computes the redshift-dependent flux from cosmological core-collapse rates and mass-weighted progenitor spectra, with flavour conversion for both mass orderings. It reuses SNEWPY's existing flux, flavour-transformation and rate-calculation tools instead of duplicating them, and I checked it against published calculations.</p>
+<p>The module has a 28-test suite, and I've revised it several times after the maintainers' feedback. I'm also reading through the existing tutorials and notebooks as a new contributor, and noting the inconsistencies and rough spots I find.</p>
 </div>
 </section>
 
 <section id="projects">
-<div class="sh"><span class="n">04</span><h2>Independent projects</h2></div>
-<p>I learn a method by implementing it end to end, checking it against published numbers, and writing down honestly where it does not match. Three of these projects are on GitLab.</p>
+<div class="sh"><span class="n">03</span><h2>Independent projects</h2></div>
+<p>I learn a method by implementing it end to end, checking it against published numbers, and writing down where it does not match. Three of these projects are on GitLab.</p>
 <div class="grid">
 <div class="card">
 <h3><a href="https://gitlab.com/dristiipatel/dsnb-reproduction">Diffuse supernova neutrino background sensitivity</a></h3>
@@ -173,30 +222,30 @@ main{padding:36px 0 16px}
 <div class="card">
 <h3><a href="https://gitlab.com/dristiipatel/cid-solar-neutrino-sim">Directional solar-neutrino detection in Borexino</a></h3>
 <p class="meta">After Basilico et al. (2023) · 2026</p>
-<p>A simulated detector that uses the faint directional Cherenkov light in a scintillation signal to tell which events point back to the Sun. A Bayesian fit returns the signal count with credible intervals, and a calibration check covered the true value in 73% of 30 trials against a nominal 68%.</p>
+<p>A simulated detector that uses the faint directional Cherenkov light in a scintillation signal to tell which events point back to the Sun. A Bayesian fit returns the signal count with credible intervals. In a calibration check, the 68% intervals covered the true value in 73% of 30 trials.</p>
 </div>
 <div class="card">
 <h3><a href="https://gitlab.com/dristiipatel/gw-matched-filter">Finding GW150914 in public data</a></h3>
 <p class="meta">Python, PyCBC, GWOSC · 2026</p>
-<p>A complete matched-filtering pipeline from raw data to detection. It recovers the first gravitational-wave event independently in both LIGO detectors, with signal-to-noise ratios of 17.55 and 13.10, within about 30 ms of the published merger time.</p>
+<p>A matched-filtering pipeline from raw data to detection. It recovers the first gravitational-wave event independently in both LIGO detectors, with signal-to-noise ratios of 17.55 and 13.10, within about 30 ms of the published merger time.</p>
 </div>
 </div>
 </section>
 
-<section id="skills">
-<div class="sh"><span class="n">05</span><h2>Skills</h2></div>
-<div class="two">
-<div><b>Scientific computing</b>Python with NumPy, SciPy and Matplotlib, including vectorised numerical integration and fitting.</div>
-<div><b>Research software</b>SNEWPY, PyCBC and SNOwGLoBES, plus Git, GitHub and GitLab for version control and code review.</div>
-<div><b>Methods</b>Event-rate calculations, sensitivity analysis, parameter scans, uncertainty analysis, and validation against published values.</div>
-<div><b>Laboratory work</b>More than thirty experiments at IISc in optics, quantum physics, electromagnetism and thermal physics, with Python for data processing.</div>
-<div><b>Writing</b>LaTeX for papers and documentation, and reading primary literature in high-energy physics.</div>
-<div><b>Languages</b>English (professional), Hindi and Gujarati (native).</div>
-</div>
+<section id="notes">
+<div class="sh"><span class="n">04</span><h2>Notes</h2></div>
+<p>I write short posts about what I'm learning, and about the mistakes I find in my own code. Some are for anyone who is curious, and some are technical. A few to start with:</p>
+<ul class="notes">
+<li><a href="notes/two-bugs-in-one-hamiltonian/">Two bugs in one Hamiltonian</a><small>In depth · from the sterile-neutrino work</small><p>Overlap-based eigenvector tracking needs the flavour basis and a real one-to-one assignment, and a residual that did not shrink with resolution was a modelling error.</p></li>
+<li><a href="notes/reproduce-a-paper-from-scratch/">Reproduce a paper from scratch: what it teaches that reading does not</a><small>For everyone · for students</small><p>A practical guide for undergraduates who want to get into research through a published result.</p></li>
+<li><a href="notes/when-the-cross-check-disagrees/">When the independent cross-check disagrees</a><small>In depth</small><p>Two episodes where an independent check misled me, and the habits that came out of them.</p></li>
+<li><a href="notes/what-five-sigma-means/">What does 5 sigma actually mean?</a><small>For everyone</small><p>A discovery threshold explained with something anyone can imagine: tossing a fair coin.</p></li>
+</ul>
+<p class="more"><a href="notes/">All notes</a></p>
 </section>
 
 <section id="honors">
-<div class="sh"><span class="n">06</span><h2>Education &amp; honors</h2></div>
+<div class="sh"><span class="n">05</span><h2>Education &amp; honors</h2></div>
 <div class="block">
 <h3 class="sq">BS (Research) Physics, Indian Institute of Science, Bengaluru</h3>
 <p class="meta">2024 to 2028 · CGPA 8.3/10</p>
@@ -206,8 +255,24 @@ main{padding:36px 0 16px}
 <div><b>Deep Asher Fellowship, 2024 to 25</b>One B.Sc. student per year, awarded on entrance-exam rank and first-semester grades.</div>
 <div><b>NSEA 2024</b>Selected at state level for the Indian National Astronomy Olympiad.</div>
 <div><b>IAAC 2025</b>Qualified for Round 2. My Round 1 submission was featured on the official website for the clarity of its reasoning.</div>
+</div>
+<h3 class="sub3">Schools, workshops and reading</h3>
+<div class="two">
+<div><b>PHLEX workshop, October 2026</b>Rice University Global and the Centre for High Energy Physics, IISc. New data-processing software for DUNE, and AI and machine-learning libraries used in high-energy physics.</div>
 <div><b>Summer School for Women in Physics, 2025</b>An intensive programme at ICTS on experimental method, with a laser-diffraction experiment and a mechanical analogue of Brownian motion.</div>
 <div><b>Directed reading, 2026</b>Radiation detection, energy loss of charged particles and Cherenkov radiation, ahead of experimental work in the group.</div>
+</div>
+</section>
+
+<section id="skills">
+<div class="sh"><span class="n">06</span><h2>Skills</h2></div>
+<div class="two">
+<div><b>Scientific computing</b>Python with NumPy, SciPy and Matplotlib, including vectorised numerical integration and fitting.</div>
+<div><b>Research software</b>SNEWPY, PyCBC and SNOwGLoBES, plus Git, GitHub and GitLab for version control and code review.</div>
+<div><b>Methods</b>Event-rate calculations, sensitivity analysis, parameter scans, uncertainty analysis, and validation against published values.</div>
+<div><b>Laboratory work</b>More than thirty experiments at IISc in optics, quantum physics, electromagnetism and thermal physics, with Python for data processing.</div>
+<div><b>Writing</b>LaTeX for papers and documentation, and reading primary literature in high-energy physics.</div>
+<div><b>Languages</b>English (professional), Hindi and Gujarati (native).</div>
 </div>
 </section>
 
@@ -234,10 +299,10 @@ main{padding:36px 0 16px}
 <section id="contact">
 <div class="sh"><span class="n">09</span><h2>Contact</h2></div>
 <p class="big"><a href="mailto:dristiip@iisc.ac.in">dristiip@iisc.ac.in</a></p>
-<p>Email is the best way to reach me. My CV has the full details.</p>
+<p>Email is the best way to reach me. I'd be glad to hear from anyone working on neutrino detection or SNEWPY, and from students who are reproducing a paper and got stuck. My CV has the full details.</p>
 </section>
 
-<footer>© 2026 Dristii Patel · Indian Institute of Science, Bengaluru</footer>
+<footer>© 2026 Dristii Patel · Indian Institute of Science, Bengaluru · Updated November 2026 · <a href="notes/">Notes</a> · <a href="Dristii_Patel_CV.pdf">CV</a></footer>
 </main>
 </div>
 
